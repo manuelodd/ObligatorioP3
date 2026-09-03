@@ -2,23 +2,40 @@
 using System.Collections.Generic;
 using System.Text;
 using Dominio.Entities;
+using Dominio.Exceptions;
+using Dominio.InterfacesRepositorio;
 
 namespace LogicaAccesoDatos.RepositoriosMemoria
 {
-    public class RepositorioUsuario
+    public class RepositorioUsuario : IRepositorio<Usuario>
     {
         public static List<Usuario> _usuarios;
 
-        //para IRepositorio<T>
-        public void Alta(Usuario usuario)
+        public void Add(Usuario nuevo)
         {
-            if (usuario == null)
-            {
-                throw new UsuarioException("Usuario vacio");
-            }
-
-            usuario.Validar();
+            throw new NotImplementedException();
         }
-    
-}
+
+        public List<Usuario> FindAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Usuario FindById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(Usuario nuevo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Usuario nuevo)
+        {
+            throw new NotImplementedException();
+        }
+
+
+    }
 }
