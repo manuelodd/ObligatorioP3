@@ -7,8 +7,14 @@ namespace Dominio.ValueObjects
 {
     public class NombreCompletoUsuario : IValidable
     {
-        public string Nombre { get; set; }
-        public string Apellido { get; set; }
+        public string Nombre { get; private set; }
+        public string Apellido { get; private set; }
+
+        public NombreCompletoUsuario(string nombre, string apellido)
+        {
+            Nombre = nombre;
+            Apellido = apellido;
+        }
 
         public void Validar()
         {

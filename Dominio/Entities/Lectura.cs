@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Dominio.InterfacesDominio;
 
 namespace Dominio.Entities
 {
@@ -8,7 +9,7 @@ namespace Dominio.Entities
     //la fecha de inicio, la fecha de finalización (si terminó), y el final alcanzado (si corresponde).
     //Un mismo usuario puede leer la misma historia más de una vez (por ejemplo,
     //para descubrir otros finales) y en cada caso se creará una nueva lectura.
-    public class Lectura
+    public class Lectura : IValidable
     {
         public int Id { get; set; }
         public Usuario Usuario { get;set; }
@@ -18,5 +19,10 @@ namespace Dominio.Entities
         //si corresponden
         public DateTime? FechaFin { get; set; }
         public Final? FinalAlcanzado { get; set; }
+
+        public void Validar()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -6,7 +6,7 @@ namespace Dominio.Enums
 {
     public enum EstadoHistoria
     {
-        BORRADOR = 1,
+        BORRADOR = 0,
         PUBLICADA
     }
 }

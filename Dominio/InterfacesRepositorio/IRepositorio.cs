@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Dominio.InterfacesRepositorio
+{
+    public interface IRepositorio<T> where T : class
+    {
+        public void Add(T nuevo);
+        public void Update(T nuevo);
+        public void Remove(T nuevo);
+        public T FindById(int id);
+        public List<T> FindAll();
+    }
+}
