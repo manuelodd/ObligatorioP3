@@ -11,11 +11,12 @@ namespace Dominio.Entities
     {
 
         public int Id { get; set; }
-        public NombreCompletoUsuario NombreCompleto { get; set; }
+        public UsuarioNombreCompleto NombreCompleto { get; set; }
         public string Email { get; set; }
 
-        //capaz hago herencia para usus
         public RolUsuario Rol { get; set; }
+
+        // VVV datos del login
         public string Username { get; set; }
         public string Password { get; set; }
 

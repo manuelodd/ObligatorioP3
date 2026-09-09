@@ -5,15 +5,15 @@ using Dominio.InterfacesDominio;
 
 namespace Dominio.ValueObjects
 {
-    public class NombreCompletoUsuario : IValidable
+    public class UsuarioNombreCompleto : IValidable
     {
         public string Nombre { get; private set; }
         public string Apellido { get; private set; }
 
-        public NombreCompletoUsuario(string nombre, string apellido)
+        public UsuarioNombreCompleto(string nombre, string apellido)
         {
-            Nombre = nombre;
-            Apellido = apellido;
+            this.Nombre = nombre;
+            this.Apellido = apellido;
         }
 
         public void Validar()

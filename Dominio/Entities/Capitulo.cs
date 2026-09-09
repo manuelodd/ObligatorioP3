@@ -10,7 +10,7 @@ namespace Dominio.Entities
     {
         public int Id { get; set; }
         public string Titulo { get; set; }
-        public TextoCapitulo Texto { get; private set; }
+        public string Texto { get; private set; }
 
         public void Validar()
         {

@@ -15,7 +15,7 @@ namespace DTOs.Mappers
             return new Usuario
             {
                 Id = dto.Id,
-                NombreCompleto = new NombreCompletoUsuario(dto.Nombre,dto.Apellido),
+                NombreCompleto = new UsuarioNombreCompleto(dto.Nombre,dto.Apellido),
                 //rol xd
                 Email = dto.Email,
                 Username = dto.Username,

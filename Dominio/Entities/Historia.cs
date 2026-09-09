@@ -11,9 +11,10 @@ namespace Dominio.Entities
         public int Id { get; set; }
         public string Titulo { get; set; }
         public string Sinopsis { get; set; }
-        public EstadoHistoria Estado { get; set; }
         public List<Categoria> Categorias { get; set; }
         public Capitulo CapituloInicial { get; set; }
+        public EstadoHistoria Estado { get; set; }
+        
 
         public void Validar()
         {
