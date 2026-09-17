@@ -1,3 +1,6 @@
+using LogicaAplicacion.CasosDeUso.Usuarios;
+using LogicaAplicacion.InterfacesCasosDeUso.Usuario;
+
 namespace WebAPP
 {
     public class Program
@@ -9,7 +12,15 @@ namespace WebAPP
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            // inicializaciones CU
+            // seguir viendo clase 40 mins
+            builder.Services.AddScoped<IObtenerUsuarioPorId, ObtenerUsuarioPorIdCU>();
+
+
+
             var app = builder.Build();
+
+            
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

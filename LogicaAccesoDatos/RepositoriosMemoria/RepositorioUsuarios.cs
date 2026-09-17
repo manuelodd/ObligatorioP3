@@ -7,9 +7,9 @@ using Dominio.InterfacesRepositorio;
 
 namespace LogicaAccesoDatos.RepositoriosMemoria
 {
-    public class RepositorioUsuario : IRepositorio<Usuario>
+    public class RepositorioUsuarios : IRepositorio<Usuario>
     {
-        public static List<Usuario> _usuarios;
+        private static List<Usuario> _usuarios;
 
         public void Add(Usuario nuevo)
         {
