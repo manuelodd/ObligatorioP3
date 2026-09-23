@@ -8,7 +8,7 @@ namespace Dominio.InterfacesRepositorio
     {
         public void Add(T nuevo);
         public void Update(T nuevo);
-        public void Remove(T nuevo);
+        public void Remove(int id);
         public T FindById(int id);
         public List<T> FindAll();
     }

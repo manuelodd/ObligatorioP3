@@ -7,7 +7,7 @@ using Dominio.InterfacesRepositorio;
 
 namespace LogicaAccesoDatos.RepositoriosMemoria
 {
-    public class RepositorioUsuarios : IRepositorio<Usuario>
+    public class RepositorioUsuarios : IRepositorioUsuarios
     {
         private static List<Usuario> _usuarios;
 
@@ -26,7 +26,7 @@ namespace LogicaAccesoDatos.RepositoriosMemoria
             throw new NotImplementedException();
         }
 
-        public void Remove(Usuario nuevo)
+        public void Remove(int id)
         {
             throw new NotImplementedException();
         }
@@ -35,7 +35,5 @@ namespace LogicaAccesoDatos.RepositoriosMemoria
         {
             throw new NotImplementedException();
         }
-
-
     }
 }
