@@ -3,6 +3,7 @@ using LogicaAccesoDatos.RepositoriosEF.Repositorios;
 using LogicaAccesoDatos.RepositoriosMemoria;
 using LogicaAplicacion.CasosDeUso.Usuarios;
 using LogicaAplicacion.InterfacesCasosDeUso.Usuario;
+using LogicaAplicacion.InterfacesCasosDeUso.Usuarios;
 
 namespace WebAPP
 {
@@ -20,8 +21,8 @@ namespace WebAPP
 
             // inicializaciones CU usuarios
             builder.Services.AddScoped<IObtenerUsuarioPorId, ObtenerUsuarioPorIdCU>();
-
-
+            builder.Services.AddScoped<IListarUsuarios, ListarUsuariosCU>();
+            builder.Services.AddScoped<IAltaUsuario, AltaUsuarioCU>();
 
             var app = builder.Build();
 
@@ -43,7 +44,7 @@ namespace WebAPP
             app.MapStaticAssets();
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}")
+                pattern: "{controller=Usuario}/{action=Index}/{id?}")
                 .WithStaticAssets();
 
             app.Run();

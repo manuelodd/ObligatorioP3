@@ -15,7 +15,9 @@ namespace LogicaAccesoDatos.RepositoriosEF.Repositorios
         }
         public void Add(Usuario nuevo)
         {
-            throw new NotImplementedException();
+            nuevo.Validar();
+            _context.Add(nuevo);
+            _context.SaveChanges();
         }
 
         public List<Usuario> FindAll()

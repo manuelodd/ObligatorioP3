@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Dominio.Enums;
+using Dominio.Exceptions;
 using Dominio.InterfacesDominio;
 using Dominio.ValueObjects;
 
@@ -23,7 +24,7 @@ namespace Dominio.Entities
 
         public void Validar()
         {
-            throw new NotImplementedException();
+            if(string.IsNullOrEmpty(Username)) throw new UsuarioException("Username vacío.");
         }
     }
 

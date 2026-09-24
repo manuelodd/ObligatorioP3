@@ -1,0 +1,52 @@
+﻿@model DTOs.DTOs.UsuarioDTO
+
+@{
+    ViewData["Title"] = "Alta de Usuario";
+}
+
+<h1>Alta de Usuario</h1>
+
+<form asp-action="Create" method="post">
+
+    <div>
+        <label asp-for="Nombre">Nombre:</label>
+        <input asp-for="Nombre" />
+        <span asp-validation-for="Nombre"></span>
+    </div>
+
+    <div>
+        <label asp-for="Apellido">Apellido:</label>
+        <input asp-for="Apellido" />
+        <span asp-validation-for="Apellido"></span>
+    </div>
+
+    <div>
+        <label asp-for="Email">Email:</label>
+        <input asp-for="Email" type="email" />
+        <span asp-validation-for="Email"></span>
+    </div>
+
+    <div>
+        <label asp-for="Rol">Rol:</label>
+        <select asp-for="Rol">
+            <option value="0">Administrador</option>
+            <option value="1">Lector</option>
+        </select>
+        <span asp-validation-for="Rol"></span>
+    </div>
+
+    <div>
+        <label asp-for="Username">Username:</label>
+        <input asp-for="Username" />
+        <span asp-validation-for="Username"></span>
+    </div>
+
+    <div>
+        <label asp-for="Password">Password:</label>
+        <input asp-for="Password" type="password" />
+        <span asp-validation-for="Password"></span>
+    </div>
+
+    <button type="submit">Crear usuario</button>
+
+</form>

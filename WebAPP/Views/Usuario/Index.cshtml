@@ -1,0 +1,42 @@
+﻿@using DTOs.DTOs
+@model List<DTOs.DTOs.UsuarioDTO>
+
+@{
+    ViewData["Title"] = "Usuarios";
+}
+
+<a asp-controller="Usuario" asp-action="Create">
+    Crear usuario
+</a>
+
+<h1>Lista de usuarios</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+            <th>Rol</th>
+            <th>Username</th>
+            <th>Password</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (UsuarioDTO usuario in Model)
+        {
+            <tr>
+                <td>@usuario.Id</td>
+                <td>@usuario.Nombre</td>
+                <td>@usuario.Apellido</td>
+                <td>@usuario.Email</td>
+                <td>@usuario.Rol</td>
+                <td>@usuario.Username</td>
+                <td>@usuario.Password</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

@@ -17,7 +17,7 @@ namespace Dominio.ValueObjects
         {
             this.Password = password;
         }
-
+        
         public void Validar()
         {
             throw new NotImplementedException();

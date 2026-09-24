@@ -1,14 +1,29 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DTOs.DTOs;
+using LogicaAplicacion.InterfacesCasosDeUso.Usuario;
+using LogicaAplicacion.InterfacesCasosDeUso.Usuarios;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPP.Controllers
 {
     public class UsuarioController : Controller
     {
-        // GET: UsuarioController
+        private IListarUsuarios listarUsuariosCU;
+        private IObtenerUsuarioPorId obtenerUsuarioPorIdCU;
+        private IAltaUsuario altaUsuarioCU;
+
+        public UsuarioController(   IListarUsuarios listarUsuariosCu, 
+                                    IObtenerUsuarioPorId obtenerUsuarioPorIdCu,
+                                    IAltaUsuario altaUsuarioCu)
+        {
+            this.listarUsuariosCU = listarUsuariosCu;
+            this.obtenerUsuarioPorIdCU = obtenerUsuarioPorIdCu;
+            this.altaUsuarioCU = altaUsuarioCu;
+        }
+
         public ActionResult Index()
         {
-            return View();
+            return View(listarUsuariosCU.Execute());
         }
 
         // GET: UsuarioController/Details/5
@@ -26,11 +41,12 @@ namespace WebAPP.Controllers
         // POST: UsuarioController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(UsuarioDTO dto)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                altaUsuarioCU.Execute(dto);
+                return RedirectToAction("Index", "Usuario");
             }
             catch
             {
