@@ -16,21 +16,12 @@ namespace DTOs.Mappers
             {
                 Id = dto.Id,
                 NombreCompleto = new UsuarioNombreCompleto(dto.Nombre,dto.Apellido),
-                //rol xd
-                Email = dto.Email,
+                Rol = (Dominio.Enums.RolUsuario)dto.Rol,
+                Email = new UsuarioEmail(dto.Email),
                 Username = dto.Username,
-                Password = dto.Password
+                Password = new UsuarioPassword(dto.Password)
 
             };
-
-            /* clase usu
-             * public int Id { get; set; }
-               public NombreCompletoUsuario NombreCompleto { get; private set; }
-               public EmailUsuario Email { get; private set; }
-               public RolUsuario Rol { get; set; }
-               public string Username { get; set; }
-               public string Password { get; set; }
-             */
         }
 
         public static UsuarioDTO ToDTO(Usuario usuario)
@@ -40,21 +31,12 @@ namespace DTOs.Mappers
                 Id = usuario.Id,
                 Nombre = usuario.NombreCompleto.Nombre,
                 Apellido = usuario.NombreCompleto.Apellido,
-                Email = usuario.Email,
-                Rol = usuario.Rol.ToString(),
-                Password = usuario.Password,
+                Email = usuario.Email.Email,
+                Rol = (int)usuario.Rol,
+                Password = usuario.Password.Password,
                 Username = usuario.Username
             };
 
-            /* usuario dto
-             * public int Id { get; set; }
-               public string Nombre { get; set; }
-               public string Apellido { get; set; }
-               public string Email { get; set; }
-               public int Rol { get; set; }
-               public string Username { get; set; }
-               public string Password { get; set; }
-             */
         }
     }
 }

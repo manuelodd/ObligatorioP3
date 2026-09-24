@@ -1,4 +1,5 @@
 using Dominio.InterfacesRepositorio;
+using LogicaAccesoDatos.RepositoriosEF.Repositorios;
 using LogicaAccesoDatos.RepositoriosMemoria;
 using LogicaAplicacion.CasosDeUso.Usuarios;
 using LogicaAplicacion.InterfacesCasosDeUso.Usuario;
@@ -15,7 +16,7 @@ namespace WebAPP
             builder.Services.AddControllersWithViews();
 
             // inicializaciones repositorios
-            builder.Services.AddScoped<IRepositorioUsuarios, RepositorioUsuarios>();
+            builder.Services.AddScoped<IRepositorioUsuarios, RepositorioUsuariosEF>();
 
             // inicializaciones CU usuarios
             builder.Services.AddScoped<IObtenerUsuarioPorId, ObtenerUsuarioPorIdCU>();

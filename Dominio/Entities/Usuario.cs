@@ -12,13 +12,13 @@ namespace Dominio.Entities
 
         public int Id { get; set; }
         public UsuarioNombreCompleto NombreCompleto { get; set; }
-        public string Email { get; set; }
+        public UsuarioEmail Email { get; set; }
 
         public RolUsuario Rol { get; set; }
 
         // VVV datos del login
         public string Username { get; set; }
-        public string Password { get; set; }
+        public UsuarioPassword Password { get; set; }
 
 
         public void Validar()

@@ -1,0 +1,41 @@
+﻿using Dominio.Entities;
+using Dominio.InterfacesRepositorio;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace LogicaAccesoDatos.RepositoriosEF.Repositorios
+{
+    public class RepositorioUsuariosEF : IRepositorioUsuarios
+    {
+        private HistoriasContext _context;
+        public RepositorioUsuariosEF()
+        {
+            _context = new HistoriasContext();
+        }
+        public void Add(Usuario nuevo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Usuario> FindAll()
+        {
+            return _context.Usuarios.ToList();
+        }
+
+        public Usuario FindById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Usuario nuevo)
+        {
+            throw new NotImplementedException();
+        }
+    }
+}
