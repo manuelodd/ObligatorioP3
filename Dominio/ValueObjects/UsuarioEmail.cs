@@ -1,12 +1,16 @@
 ﻿using Dominio.InterfacesDominio;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Dominio.ValueObjects
 {
+    [Owned]
+
     public class UsuarioEmail : IValidable
     {
+
         public string Email { get; set; }
 
         public UsuarioEmail(string email)
