@@ -1,4 +1,5 @@
 ﻿using Dominio.Entities;
+using Dominio.InterfacesRepositorio;
 using DTOs.DTOs;
 using DTOs.Mappers;
 using LogicaAccesoDatos.RepositoriosMemoria;
@@ -11,11 +12,11 @@ namespace LogicaAplicacion.CasosDeUso.Usuarios
 {
     public class ObtenerUsuarioPorIdCU : IObtenerUsuarioPorId
     {
-        private RepositorioUsuarios repositorio;
+        private IRepositorioUsuarios repositorio;
 
-        public ObtenerUsuarioPorIdCU()
+        public ObtenerUsuarioPorIdCU(IRepositorioUsuarios repo)
         {
-            repositorio = new RepositorioUsuarios();
+            repositorio = repo;
         }
         public UsuarioDTO Execute(int id)
         {

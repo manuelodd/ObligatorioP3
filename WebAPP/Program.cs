@@ -1,3 +1,5 @@
+using Dominio.InterfacesRepositorio;
+using LogicaAccesoDatos.RepositoriosMemoria;
 using LogicaAplicacion.CasosDeUso.Usuarios;
 using LogicaAplicacion.InterfacesCasosDeUso.Usuario;
 
@@ -12,8 +14,10 @@ namespace WebAPP
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            // inicializaciones CU
-            // seguir viendo clase 40 mins
+            // inicializaciones repositorios
+            builder.Services.AddScoped<IRepositorioUsuarios, RepositorioUsuarios>();
+
+            // inicializaciones CU usuarios
             builder.Services.AddScoped<IObtenerUsuarioPorId, ObtenerUsuarioPorIdCU>();
 
 
