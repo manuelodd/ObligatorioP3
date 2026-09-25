@@ -27,7 +27,7 @@ namespace LogicaAccesoDatos.RepositoriosEF.Repositorios
 
         public Usuario FindById(int id)
         {
-            throw new NotImplementedException();
+            return _context.Usuarios.Where(u => u.Id == id).FirstOrDefault();
         }
 
         public void Remove(int id)
