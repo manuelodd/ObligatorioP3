@@ -35,6 +35,8 @@
                 <td>@usuario.Rol</td>
                 <td>@usuario.Username</td>
                 <td>@usuario.Password</td>
+
+                <td> <a asp-controller="Usuario" asp-action="Details" asp-route-id="@usuario.Id"> Ver detalles </a> </td>
             </tr>
         }
     </tbody>

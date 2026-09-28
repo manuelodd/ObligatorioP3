@@ -20,15 +20,7 @@ namespace LogicaAplicacion.CasosDeUso.Usuarios
         }
         public UsuarioDTO Execute(int id)
         {
-
-            foreach(Usuario usuario in repositorio.FindAll())
-            {
-                if(usuario.Id == id)
-                {
-                    return UsuarioDTOMapper.ToDTO(usuario);
-                }
-            }
-            return null;
+            return UsuarioDTOMapper.ToDTO(repositorio.FindById(id));
         }
     }
 }

@@ -23,6 +23,7 @@ namespace WebAPP
             builder.Services.AddScoped<IObtenerUsuarioPorId, ObtenerUsuarioPorIdCU>();
             builder.Services.AddScoped<IListarUsuarios, ListarUsuariosCU>();
             builder.Services.AddScoped<IAltaUsuario, AltaUsuarioCU>();
+            
 
             var app = builder.Build();
 

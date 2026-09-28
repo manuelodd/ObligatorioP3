@@ -29,7 +29,7 @@ namespace WebAPP.Controllers
         // GET: UsuarioController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            return View(obtenerUsuarioPorIdCU.Execute(id));
         }
 
         // GET: UsuarioController/Create
