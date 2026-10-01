@@ -7,6 +7,7 @@ namespace Dominio.Entities
 {
     public class Opcion : IValidable
     {
+        public int Id { get; set; }
         public string Texto { get; set; }
         public Capitulo SiguienteCapitulo { get; set; }
 

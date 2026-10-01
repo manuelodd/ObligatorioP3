@@ -7,6 +7,6 @@ namespace LogicaAplicacion.InterfacesCasosDeUso.Usuarios
 {
     public interface IAltaUsuario
     {
-        public void Execute(UsuarioDTO usuarioDTO);
+        public void Execute(UsuarioDTO dto);
     }
 }

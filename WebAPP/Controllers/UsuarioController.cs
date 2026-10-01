@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPP.Controllers
 {
-    public class UsuarioController : Controller
+    public class UsuarioController : QOLController
     {
         private IListarUsuarios listarUsuariosCU;
         private IObtenerUsuarioPorId obtenerUsuarioPorIdCU;

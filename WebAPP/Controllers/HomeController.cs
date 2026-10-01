@@ -4,7 +4,7 @@ using WebAPP.Models;
 
 namespace WebAPP.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : QOLController
     {
         public IActionResult Index()
         {
