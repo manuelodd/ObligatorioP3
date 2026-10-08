@@ -26,6 +26,16 @@ namespace LogicaAccesoDatos.RepositoriosMemoria
             throw new NotImplementedException();
         }
 
+        public Usuario FindUsuarioByUsername(string username)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Usuario Login(string username, string password)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Remove(int id)
         {
             throw new NotImplementedException();

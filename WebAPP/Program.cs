@@ -38,6 +38,7 @@ namespace WebAPP
             builder.Services.AddScoped<IObtenerUsuarioPorId, ObtenerUsuarioPorIdCU>();
             builder.Services.AddScoped<IListarUsuarios, ListarUsuariosCU>();
             builder.Services.AddScoped<IAltaUsuario, AltaUsuarioCU>();
+            builder.Services.AddScoped<ILoginAdmins, LoginAdminsCU>();
             // inicializaciones CU historias
             builder.Services.AddScoped<IAltaHistoria, AltaHistoriaCU>();
             

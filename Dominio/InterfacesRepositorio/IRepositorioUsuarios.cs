@@ -7,6 +7,7 @@ namespace Dominio.InterfacesRepositorio
 {
     public interface IRepositorioUsuarios : IRepositorio<Usuario>
     {
-        // metodos custom
+        public Usuario FindUsuarioByUsername(string username);
+        public Usuario Login(string username, string password);
     }
 }

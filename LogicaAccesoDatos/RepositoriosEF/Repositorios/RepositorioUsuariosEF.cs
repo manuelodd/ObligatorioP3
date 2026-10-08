@@ -30,6 +30,20 @@ namespace LogicaAccesoDatos.RepositoriosEF.Repositorios
             return _context.Usuarios.Where(u => u.Id == id).FirstOrDefault();
         }
 
+        public Usuario FindUsuarioByUsername(string username)
+        {
+            return _context.Usuarios
+                                    .Where(u => u.Username == username)
+                                    .FirstOrDefault();
+        }
+
+        public Usuario Login(string username, string password)
+        {
+            return _context.Usuarios
+                                    .Where(u => u.Username == username && u.Password.Password == password)
+                                    .FirstOrDefault();
+        }
+
         public void Remove(int id)
         {
             throw new NotImplementedException();

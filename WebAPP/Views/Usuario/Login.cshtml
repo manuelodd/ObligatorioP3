@@ -1,0 +1,10 @@
+﻿<form method="post">
+    <input name="username" placeholder="Usuario" />
+    <input name="password" type="password" placeholder="Contraseña" />
+    <button type="submit">Login</button>
+</form>
+
+@if (ViewBag.Error != null)
+{
+    <p>@ViewBag.Error</p>
+}

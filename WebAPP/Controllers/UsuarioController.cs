@@ -1,24 +1,52 @@
-﻿using DTOs.DTOs;
+﻿using Dominio.Exceptions;
+using DTOs.DTOs;
 using LogicaAplicacion.InterfacesCasosDeUso.Usuario;
 using LogicaAplicacion.InterfacesCasosDeUso.Usuarios;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Client;
 
 namespace WebAPP.Controllers
 {
     public class UsuarioController : QOLController
     {
+        private ILoginAdmins loginAdminsCU;
         private IListarUsuarios listarUsuariosCU;
         private IObtenerUsuarioPorId obtenerUsuarioPorIdCU;
         private IAltaUsuario altaUsuarioCU;
 
         public UsuarioController(   IListarUsuarios listarUsuariosCu, 
                                     IObtenerUsuarioPorId obtenerUsuarioPorIdCu,
-                                    IAltaUsuario altaUsuarioCu)
+                                    IAltaUsuario altaUsuarioCu,
+                                    ILoginAdmins loginAdminsCu)
         {
             this.listarUsuariosCU = listarUsuariosCu;
             this.obtenerUsuarioPorIdCU = obtenerUsuarioPorIdCu;
             this.altaUsuarioCU = altaUsuarioCu;
+            this.loginAdminsCU = loginAdminsCu;
+        }
+
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Login(LoginDTO dto)
+        {
+            try
+            {
+                UsuarioDTO usuario = loginAdminsCU.Execute(dto);
+                HttpContext.Session.SetString("username", usuario.Username);
+
+            }
+            catch (UsuarioException ex)
+            {
+                ViewBag.Error = ex.Message;
+                return View(dto);
+            }
+
+            return RedirectToAction("Index");
         }
 
         public ActionResult Index()
