@@ -13,6 +13,7 @@ namespace Dominio.Entities
         public string Sinopsis { get; set; }
         public List<Categoria> Categorias { get; set; }
         public Capitulo CapituloInicial { get; set; }
+        public int CapituloInicialId { get; set; }
         public EstadoHistoria Estado { get; set; }
         
 
