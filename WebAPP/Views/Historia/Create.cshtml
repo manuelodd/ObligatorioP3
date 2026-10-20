@@ -1,0 +1,26 @@
+﻿@using DTOs.DTOs
+@model List<CategoriaDTO>
+
+<h1>Alta historia</h1>
+
+<form asp-action="Create" method="post">
+
+<label for="Titulo">Título</label>
+<input type="text" name="Titulo" id="Titulo"/>
+
+<label for="Sinopsis">Sinopsis</label>
+<input type="text" name="Sinopsis" id="Sinopsis" />
+
+@foreach(CategoriaDTO dto in Model)
+{
+        <label>
+            @dto.Nombre
+            <input type="checkbox"
+                   name="Categorias.Id"
+                   value="@dto.Id" />
+        </label>
+}
+
+<input type="submit" value="Crear"/>
+
+</form>

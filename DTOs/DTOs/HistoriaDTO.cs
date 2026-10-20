@@ -10,6 +10,7 @@ namespace DTOs.DTOs
         public string Titulo { get; set; }
         public string Sinopsis { get; set; }
         public List<CategoriaDTO> Categorias { get; set; }
+        //public List<int> CategoriasId { get; set; }
         public int CapituloInicialId { get; set; }
         public int Estado { get; set; }
     }
