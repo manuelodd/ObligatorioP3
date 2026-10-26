@@ -3,5 +3,6 @@
   <Project Path="DTOs/DTOs.csproj" />
   <Project Path="LogicaAccesoDatos/LogicaAccesoDatos.csproj" />
   <Project Path="LogicaAplicacion/LogicaAplicacion.csproj" />
+  <Project Path="WebApi/WebApi.csproj" Id="b14754e8-ea94-408b-a8bd-cca5615d4cbc" />
   <Project Path="WebAPP/WebAPP.csproj" />
 </Solution>
