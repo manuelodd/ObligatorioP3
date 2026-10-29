@@ -16,10 +16,16 @@
         <label>
             @dto.Nombre
             <input type="checkbox"
-                   name="Categorias.Id"
+                   name="CategoriasId"
                    value="@dto.Id" />
         </label>
 }
+
+    <label for="TituloCapInicial">Titulo capitulo inicial: </label>
+    <input type="text" name="TituloCapInicial" id="TituloCapInicial" />
+
+    <label for="TextoCapInicial">Texto capitulo inicial: </label>
+    <input type="text" name="TextoCapInicial" id="TextoCapInicial" />
 
 <input type="submit" value="Crear"/>
 

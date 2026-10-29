@@ -44,6 +44,7 @@ namespace WebAPP
             builder.Services.AddScoped<ILoginAdmins, LoginAdminsCU>();
             // inicializaciones CU historias
             builder.Services.AddScoped<IAltaHistoria, AltaHistoriaCU>();
+            builder.Services.AddScoped<IListarHistorias, ListarHistoriasCU>();
             // inicializaciones CU categorias
             builder.Services.AddScoped<IListarCategorias, ListarCategoriasCU>();
 

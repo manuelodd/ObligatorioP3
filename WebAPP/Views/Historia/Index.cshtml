@@ -1,0 +1,38 @@
+﻿@using DTOs.DTOs
+@model List<DTOs.DTOs.HistoriaDTO>
+
+@{
+    ViewData["Title"] = "Historias";
+}
+
+@if (ViewBag.Error != null)
+{
+    <p>@ViewBag.Error</p>
+}
+
+
+<h1>Lista de historias</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Titulo</th>
+            <th>Sinopsis</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (HistoriaDTO dto in Model)
+        {
+            <tr>
+                <td>@dto.Id</td>
+                <td>@dto.Titulo</td>
+                <td>@dto.Sinopsis</td>
+                
+                <td> <a asp-controller="Usuario" asp-action="Details" asp-route-id="@dto.Id"> NO TOCAR </a> </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

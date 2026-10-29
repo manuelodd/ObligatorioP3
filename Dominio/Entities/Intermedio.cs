@@ -6,6 +6,9 @@ namespace Dominio.Entities
 {
     public class Intermedio : Capitulo
     {
-        public List<Opcion> Opciones { get; set; }
+        public Intermedio(string titulo, string texto)  : base(titulo, texto)
+        {
+        }
+        public List<Opcion> Opciones { get; set; } = new List<Opcion>();
     }
 }

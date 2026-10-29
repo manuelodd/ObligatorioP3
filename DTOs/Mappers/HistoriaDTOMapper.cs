@@ -11,19 +11,15 @@ namespace DTOs.Mappers
     {
         public static Historia FromDTO(HistoriaDTO dto)
         {
-            List<Categoria> categorias = new List<Categoria>();
-            foreach(CategoriaDTO catdto in dto.Categorias)
-            {
-                categorias.Add(CategoriaDTOMapper.FromDTO(catdto));
-            }
             return new Historia
             {
                 Id = dto.Id,
                 Titulo = dto.Titulo,
                 Sinopsis = dto.Sinopsis,
-                Categorias = categorias,
+                Categorias = new List<Categoria>(),
                 CapituloInicialId = dto.CapituloInicialId,
-                Estado = (Dominio.Enums.EstadoHistoria)dto.Estado
+                Estado = (Dominio.Enums.EstadoHistoria)dto.Estado,
+                CapituloInicial = new Intermedio(dto.TituloCapInicial, dto.TextoCapInicial)
             };
         }
 
@@ -40,8 +36,12 @@ namespace DTOs.Mappers
                 Titulo = historia.Titulo,
                 Sinopsis = historia.Sinopsis,
                 Categorias = categorias,
-                CapituloInicialId = historia.CapituloInicial.Id,
-                Estado = (int)historia.Estado
+                // por si el capitulo inicial todavia no existe (mayoria de casos) no tire errores SACAR DESPUES
+                CapituloInicialId = historia.CapituloInicial?.Id ?? 0,
+                Estado = (int)historia.Estado,
+                TextoCapInicial = historia.CapituloInicial?.Texto,
+                TituloCapInicial = historia.CapituloInicial.Titulo
+                
             };
         }
     }

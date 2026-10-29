@@ -9,19 +9,22 @@ namespace WebAPP.Controllers
     public class HistoriaController : QOLController
     {
         // GET: HistoriaControler
+        private IListarHistorias findAllHistoriasCU;
         private IListarCategorias findAllCatsCU;
         private IAltaHistoria altaHistoriaCU;
         public HistoriaController(      
                                     IListarCategorias findAllCatsCu,
-                                    IAltaHistoria altaHistoriaCu)
+                                    IAltaHistoria altaHistoriaCu,
+                                    IListarHistorias findAllHistoriasCu)
         {
             findAllCatsCU = findAllCatsCu;
             altaHistoriaCU = altaHistoriaCu;
+            findAllHistoriasCU = findAllHistoriasCu;
         }
 
         public ActionResult Index()
         {
-            return View();
+            return View(findAllHistoriasCU.Execute());
         }
 
         // GET: HistoriaControler/Details/5
@@ -42,12 +45,15 @@ namespace WebAPP.Controllers
             try
             {
                 altaHistoriaCU.Execute(dto);
+                return Content("Historia creada correctamente");
             }
             catch(Exception ex)
+
+            //ACA SALTA LA EX
             {
                 ViewBag.Error = ex.Message;
             }
-            return View(dto);
+            return RedirectToAction("Index", "Historia");
         }
 
         // GET: HistoriaControler/Edit/5

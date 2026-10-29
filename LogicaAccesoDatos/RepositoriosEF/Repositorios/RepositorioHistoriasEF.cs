@@ -1,5 +1,6 @@
 ﻿using Dominio.Entities;
 using Dominio.InterfacesRepositorio;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -23,7 +24,10 @@ namespace LogicaAccesoDatos.RepositoriosEF.Repositorios
 
         public List<Historia> FindAll()
         {
-            throw new NotImplementedException();
+            return _context.Historias   .Include(h => h.CapituloInicial)
+                                        .Include(h => h.Categorias)
+                                        .ToList();
+                                
         }
 
         public Historia FindById(int id)
