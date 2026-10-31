@@ -22,5 +22,26 @@ namespace LogicaAccesoDatos.RepositoriosEF
             optionsBuilder.UseSqlServer
                     (@"SERVER=(localdb)\MsSqlLocalDb;DATABASE=Historias;Integrated Security=true");
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // Historia - Capítulos (1 a muchos)
+            modelBuilder.Entity<Historia>()
+                .HasMany(h => h.Capitulos)
+                .WithOne(c => c.Historia)
+                .HasForeignKey(c => c.HistoriaId);
+
+            // Historia - Capítulo inicial (1 a 1 desde Historia)
+            modelBuilder.Entity<Historia>()
+                .HasOne(h => h.CapituloInicial)
+                .WithMany()
+                .HasForeignKey(h => h.CapituloInicialId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Historia - Categorías (muchos a muchos)
+            modelBuilder.Entity<Historia>()
+                .HasMany(h => h.Categorias)
+                .WithMany();
+        }
     }
 }

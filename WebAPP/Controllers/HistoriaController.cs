@@ -10,16 +10,22 @@ namespace WebAPP.Controllers
     {
         // GET: HistoriaControler
         private IListarHistorias findAllHistoriasCU;
+        private IObtenerHistoriaPorId findByIdCU;
+        private IEditarHistoria editarHistoriaCU;
         private IListarCategorias findAllCatsCU;
         private IAltaHistoria altaHistoriaCU;
         public HistoriaController(      
                                     IListarCategorias findAllCatsCu,
                                     IAltaHistoria altaHistoriaCu,
-                                    IListarHistorias findAllHistoriasCu)
+                                    IListarHistorias findAllHistoriasCu,
+                                    IEditarHistoria editarHistoriaCu,
+                                    IObtenerHistoriaPorId findByIdCu)
         {
             findAllCatsCU = findAllCatsCu;
             altaHistoriaCU = altaHistoriaCu;
             findAllHistoriasCU = findAllHistoriasCu;
+            editarHistoriaCU = editarHistoriaCu;
+            findByIdCU = findByIdCu;
         }
 
         public ActionResult Index()
@@ -45,7 +51,7 @@ namespace WebAPP.Controllers
             try
             {
                 altaHistoriaCU.Execute(dto);
-                return Content("Historia creada correctamente");
+                return RedirectToAction("Index");
             }
             catch(Exception ex)
 
@@ -59,21 +65,28 @@ namespace WebAPP.Controllers
         // GET: HistoriaControler/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            HistoriaDTO his = findByIdCU.Execute(id);
+            ViewBag.Categorias = findAllCatsCU.Execute();
+            return View(his);
         }
 
         // POST: HistoriaControler/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(HistoriaDTO dto)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                editarHistoriaCU.Execute(dto);
+                ViewBag.Error = "Modificacion exitosa";
+                return RedirectToAction("Index");
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                ViewBag.Error = ex.Message;
+                //si sale mal le vuelvo a recargar las cats
+                ViewBag.Categorias = findAllCatsCU.Execute();
+                return View(dto);
             }
         }
 

@@ -1,4 +1,5 @@
 ﻿using Dominio.Entities;
+using Dominio.Exceptions;
 using Dominio.InterfacesRepositorio;
 using DTOs.DTOs;
 using DTOs.Mappers;
@@ -41,14 +42,13 @@ namespace LogicaAplicacion.CasosDeUso.Historias
                 foreach (int idC in dto.CategoriasId)
                 {
                     Categoria categoria = repositorioC.FindById(idC);
-                    if (categoria == null)
-                    {
-                        throw new Exception("No existe categoria con este id ->" + idC);
-                    }
                     historia.Categorias.Add(categoria);
                 }
             }
-
+            else
+            {
+                throw new HistoriaException("Debe seleccionar al menos una categoria");
+            }
             repositorio.Add(historia);
         }
     }

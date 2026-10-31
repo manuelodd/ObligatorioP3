@@ -17,10 +17,25 @@ namespace LogicaAccesoDatos.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.12")
+                .HasAnnotation("ProductVersion", "10.0.14")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("CategoriaHistoria", b =>
+                {
+                    b.Property<int>("CategoriasId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HistoriaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CategoriasId", "HistoriaId");
+
+                    b.HasIndex("HistoriaId");
+
+                    b.ToTable("CategoriaHistoria");
+                });
 
             modelBuilder.Entity("Dominio.Entities.Capitulo", b =>
                 {
@@ -35,6 +50,9 @@ namespace LogicaAccesoDatos.Migrations
                         .HasMaxLength(13)
                         .HasColumnType("nvarchar(13)");
 
+                    b.Property<int>("HistoriaId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Texto")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -44,6 +62,8 @@ namespace LogicaAccesoDatos.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("HistoriaId");
 
                     b.ToTable("Capitulos");
 
@@ -60,16 +80,11 @@ namespace LogicaAccesoDatos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("HistoriaId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("HistoriaId");
 
                     b.ToTable("Categorias");
                 });
@@ -82,7 +97,7 @@ namespace LogicaAccesoDatos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CapituloInicialId")
+                    b.Property<int?>("CapituloInicialId")
                         .HasColumnType("int");
 
                     b.Property<int>("Estado")
@@ -201,11 +216,30 @@ namespace LogicaAccesoDatos.Migrations
                     b.HasDiscriminator().HasValue("Intermedio");
                 });
 
-            modelBuilder.Entity("Dominio.Entities.Categoria", b =>
+            modelBuilder.Entity("CategoriaHistoria", b =>
                 {
+                    b.HasOne("Dominio.Entities.Categoria", null)
+                        .WithMany()
+                        .HasForeignKey("CategoriasId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Dominio.Entities.Historia", null)
-                        .WithMany("Categorias")
-                        .HasForeignKey("HistoriaId");
+                        .WithMany()
+                        .HasForeignKey("HistoriaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Dominio.Entities.Capitulo", b =>
+                {
+                    b.HasOne("Dominio.Entities.Historia", "Historia")
+                        .WithMany("Capitulos")
+                        .HasForeignKey("HistoriaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Historia");
                 });
 
             modelBuilder.Entity("Dominio.Entities.Historia", b =>
@@ -213,8 +247,7 @@ namespace LogicaAccesoDatos.Migrations
                     b.HasOne("Dominio.Entities.Capitulo", "CapituloInicial")
                         .WithMany()
                         .HasForeignKey("CapituloInicialId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("CapituloInicial");
                 });
@@ -328,7 +361,7 @@ namespace LogicaAccesoDatos.Migrations
 
             modelBuilder.Entity("Dominio.Entities.Historia", b =>
                 {
-                    b.Navigation("Categorias");
+                    b.Navigation("Capitulos");
                 });
 
             modelBuilder.Entity("Dominio.Entities.Intermedio", b =>

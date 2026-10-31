@@ -10,9 +10,9 @@ namespace LogicaAccesoDatos.RepositoriosEF.Repositorios
     public class RepositorioHistoriasEF : IRepositorioHistorias
     {
         private HistoriasContext _context;
-        public RepositorioHistoriasEF()
+        public RepositorioHistoriasEF(HistoriasContext context)
         {
-            _context = new HistoriasContext();
+            _context = context;
         }
 
         public void Add(Historia nuevo)
@@ -24,15 +24,19 @@ namespace LogicaAccesoDatos.RepositoriosEF.Repositorios
 
         public List<Historia> FindAll()
         {
-            return _context.Historias   .Include(h => h.CapituloInicial)
-                                        .Include(h => h.Categorias)
-                                        .ToList();
-                                
+            return _context.Historias
+                .Include(h => h.CapituloInicial)
+                .Include(h => h.Capitulos)
+                .Include(h => h.Categorias)
+                .ToList();
         }
 
         public Historia FindById(int id)
         {
-            throw new NotImplementedException();
+            return _context.Historias.Where(h => h.Id == id)
+                                        .Include(h => h.Categorias)
+                                        .Include(h => h.CapituloInicial)
+                                        .FirstOrDefault();
         }
 
         public void Remove(int id)
@@ -42,7 +46,17 @@ namespace LogicaAccesoDatos.RepositoriosEF.Repositorios
 
         public void Update(Historia nuevo)
         {
-            throw new NotImplementedException();
+            nuevo.Validar();
+            _context.Historias.Update(nuevo);
+            _context.SaveChanges();
+        }
+
+        public bool TieneMasDeUnCapitulo(int idHistoria)
+        {
+            return _context.Historias
+                                                .Where(h => h.Id == idHistoria)
+                                                .SelectMany(h => h.Capitulos)
+                                                .Count() > 1;
         }
     }
 }

@@ -1,0 +1,52 @@
+﻿@using DTOs.DTOs
+@model HistoriaDTO
+
+<h1>Editar historia</h1>
+
+<form asp-action="Edit" method="post">
+
+    <input type="hidden" name="Id" value="@Model.Id" />
+
+    <label for="Titulo">Título</label>
+    <input type="text" name="Titulo" id="Titulo" value="@Model.Titulo" />
+
+    <label for="Sinopsis">Sinopsis</label>
+    <input type="text" name="Sinopsis" id="Sinopsis" value="@Model.Sinopsis" />
+
+    <label>Categorías</label>
+
+    @foreach (CategoriaDTO categoria in ViewBag.Categorias)
+    {
+        <label>
+            @categoria.Nombre
+
+            <input type="checkbox"
+                   name="CategoriasId"
+                   value="@categoria.Id"
+                   checked="@(Model.CategoriasId != null && Model.CategoriasId.Contains(categoria.Id))" />
+        </label>
+    }
+
+    <label for="Estado">Estado</label>
+    <select name="Estado" id="Estado">
+        <option value="0" selected="@(Model.Estado == 0)">BORRADOR</option>
+        <option value="1" selected="@(Model.Estado == 1)">PUBLICADA</option>
+    </select>
+
+    <h3>Capítulo inicial</h3>
+
+    <label for="TituloCapInicial">Título capítulo inicial:</label>
+    <input type="text"
+           name="TituloCapInicial"
+           id="TituloCapInicial"
+           value="@Model.TituloCapInicial" />
+
+    <label for="TextoCapInicial">Texto capítulo inicial:</label>
+    <input type="text"
+           name="TextoCapInicial"
+           id="TextoCapInicial"
+           value="@Model.TextoCapInicial" />
+
+    <input type="submit" value="Guardar cambios" />
+
+</form>

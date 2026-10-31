@@ -9,9 +9,9 @@ namespace LogicaAccesoDatos.RepositoriosEF.Repositorios
     public class RepositorioUsuariosEF : IRepositorioUsuarios
     {
         private HistoriasContext _context;
-        public RepositorioUsuariosEF()
+        public RepositorioUsuariosEF(HistoriasContext context)
         {
-            _context = new HistoriasContext();
+            _context = context;
         }
         public void Add(Usuario nuevo)
         {

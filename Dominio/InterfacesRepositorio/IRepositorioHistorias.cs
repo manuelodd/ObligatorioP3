@@ -7,5 +7,6 @@ namespace Dominio.InterfacesRepositorio
 {
     public interface IRepositorioHistorias : IRepositorio<Historia>
     {
+        public bool TieneMasDeUnCapitulo(int idHistoria);
     }
 }

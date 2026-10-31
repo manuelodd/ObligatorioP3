@@ -11,16 +11,23 @@ namespace DTOs.Mappers
     {
         public static Historia FromDTO(HistoriaDTO dto)
         {
-            return new Historia
+            Intermedio capituloInicial = new Intermedio(
+                dto.TituloCapInicial,
+                dto.TextoCapInicial
+            );
+
+            Historia historia = new Historia
             {
                 Id = dto.Id,
                 Titulo = dto.Titulo,
                 Sinopsis = dto.Sinopsis,
                 Categorias = new List<Categoria>(),
-                CapituloInicialId = dto.CapituloInicialId,
                 Estado = (Dominio.Enums.EstadoHistoria)dto.Estado,
-                CapituloInicial = new Intermedio(dto.TituloCapInicial, dto.TextoCapInicial)
+                CapituloInicial = capituloInicial,
+                Capitulos = new List<Capitulo> { capituloInicial }
             };
+
+            return historia;
         }
 
         public static HistoriaDTO ToDTO(Historia historia)

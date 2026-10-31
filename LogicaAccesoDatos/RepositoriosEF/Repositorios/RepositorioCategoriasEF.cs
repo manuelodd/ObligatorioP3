@@ -9,9 +9,9 @@ namespace LogicaAccesoDatos.RepositoriosEF.Repositorios
     public class RepositorioCategoriasEF : IRepositorioCategorias
     {
         private HistoriasContext _context;
-        public RepositorioCategoriasEF()
+        public RepositorioCategoriasEF(HistoriasContext context)
         {
-            _context = new HistoriasContext();
+            _context = context;
         }
         public void Add(Categoria nuevo)
         {

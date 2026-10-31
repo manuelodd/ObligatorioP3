@@ -1,4 +1,5 @@
 using Dominio.InterfacesRepositorio;
+using LogicaAccesoDatos.RepositoriosEF;
 using LogicaAccesoDatos.RepositoriosEF.Repositorios;
 using LogicaAccesoDatos.RepositoriosMemoria;
 using LogicaAplicacion.CasosDeUso.Categorias;
@@ -32,6 +33,8 @@ namespace WebAPP
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            // singleton ed Context
+            builder.Services.AddDbContext<HistoriasContext>();
             // inicializaciones repositorios
             builder.Services.AddScoped<IRepositorioUsuarios, RepositorioUsuariosEF>();
             builder.Services.AddScoped<IRepositorioHistorias, RepositorioHistoriasEF>();
@@ -45,6 +48,8 @@ namespace WebAPP
             // inicializaciones CU historias
             builder.Services.AddScoped<IAltaHistoria, AltaHistoriaCU>();
             builder.Services.AddScoped<IListarHistorias, ListarHistoriasCU>();
+            builder.Services.AddScoped<IObtenerHistoriaPorId, ObtenerHistoriaPorIdCU>();
+            builder.Services.AddScoped<IEditarHistoria, EditarHistoriaCU>();
             // inicializaciones CU categorias
             builder.Services.AddScoped<IListarCategorias, ListarCategoriasCU>();
 
