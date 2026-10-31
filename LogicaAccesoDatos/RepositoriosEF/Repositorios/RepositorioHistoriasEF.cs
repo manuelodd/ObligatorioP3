@@ -17,8 +17,12 @@ namespace LogicaAccesoDatos.RepositoriosEF.Repositorios
 
         public void Add(Historia nuevo)
         {
-            nuevo.Validar();
+            nuevo.CapituloInicialId = null;
+           
             _context.Historias.Add(nuevo);
+            _context.SaveChanges();
+
+            nuevo.CapituloInicialId = nuevo.CapituloInicial.Id;
             _context.SaveChanges();
         }
 
