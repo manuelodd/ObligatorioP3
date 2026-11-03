@@ -1,4 +1,5 @@
 ﻿using Dominio.Entities;
+using Dominio.Enums;
 using DTOs.DTOs;
 using System;
 using System.Collections.Generic;
@@ -16,18 +17,15 @@ namespace DTOs.Mappers
                 dto.TextoCapInicial
             );
 
-            Historia historia = new Historia
+            return new Historia
             {
                 Id = dto.Id,
                 Titulo = dto.Titulo,
                 Sinopsis = dto.Sinopsis,
                 Categorias = new List<Categoria>(),
-                Estado = (Dominio.Enums.EstadoHistoria)dto.Estado,
-                CapituloInicial = capituloInicial,
+                Estado = (EstadoHistoria)dto.Estado,
                 Capitulos = new List<Capitulo> { capituloInicial }
             };
-
-            return historia;
         }
 
         public static HistoriaDTO ToDTO(Historia historia)
