@@ -26,7 +26,7 @@ namespace Dominio.Entities
 
         public void Validar()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }

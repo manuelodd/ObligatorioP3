@@ -1,0 +1,51 @@
+﻿@model DTOs.DTOs.CapituloAltaDTO
+
+@{
+    ViewData["Title"] = "Agregar capítulo";
+}
+
+<h1>Agregar capítulo</h1>
+
+<form asp-action="Create" method="post">
+
+    <div class="form-group">
+        <label asp-for="HistoriaId">Historia</label>
+        <select asp-for="HistoriaId"
+                asp-items="ViewBag.Historias"
+                class="form-control">
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Tipo">Tipo de capítulo</label>
+        <select asp-for="Tipo" class="form-control">
+            <option value="1">Intermedio</option>
+            <option value="2">Final</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Titulo">Título</label>
+        <input asp-for="Titulo" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Texto">Texto del capítulo</label>
+        <textarea asp-for="Texto" class="form-control"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TextoOpcion">Texto de la opción</label>
+        <input asp-for="TextoOpcion" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        Agregar capítulo
+    </button>
+
+</form>
+
+@if(ViewBag.Error != null)
+{
+    <p>@ViewBag.Error</p>
+}

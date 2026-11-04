@@ -24,7 +24,9 @@ namespace DTOs.Mappers
                 Sinopsis = dto.Sinopsis,
                 Categorias = new List<Categoria>(),
                 Estado = (EstadoHistoria)dto.Estado,
-                Capitulos = new List<Capitulo> { capituloInicial }
+                Capitulos = new List<Capitulo>  { 
+                                                capituloInicial 
+                                                }
             };
         }
 

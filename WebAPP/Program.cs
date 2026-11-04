@@ -2,9 +2,11 @@ using Dominio.InterfacesRepositorio;
 using LogicaAccesoDatos.RepositoriosEF;
 using LogicaAccesoDatos.RepositoriosEF.Repositorios;
 using LogicaAccesoDatos.RepositoriosMemoria;
+using LogicaAplicacion.CasosDeUso.Capitulos;
 using LogicaAplicacion.CasosDeUso.Categorias;
 using LogicaAplicacion.CasosDeUso.Historias;
 using LogicaAplicacion.CasosDeUso.Usuarios;
+using LogicaAplicacion.InterfacesCasosDeUso.Capitulos;
 using LogicaAplicacion.InterfacesCasosDeUso.Categorias;
 using LogicaAplicacion.InterfacesCasosDeUso.Historias;
 using LogicaAplicacion.InterfacesCasosDeUso.Usuario;
@@ -39,6 +41,7 @@ namespace WebAPP
             builder.Services.AddScoped<IRepositorioUsuarios, RepositorioUsuariosEF>();
             builder.Services.AddScoped<IRepositorioHistorias, RepositorioHistoriasEF>();
             builder.Services.AddScoped<IRepositorioCategorias, RepositorioCategoriasEF>();
+            builder.Services.AddScoped<IRepositorioCapitulos, RepositorioCapitulosEF>();
 
             // inicializaciones CU usuarios
             builder.Services.AddScoped<IObtenerUsuarioPorId, ObtenerUsuarioPorIdCU>();
@@ -52,6 +55,8 @@ namespace WebAPP
             builder.Services.AddScoped<IEditarHistoria, EditarHistoriaCU>();
             // inicializaciones CU categorias
             builder.Services.AddScoped<IListarCategorias, ListarCategoriasCU>();
+            // inicializaciones CU capitulos
+            builder.Services.AddScoped<IAltaCapitulo, AltaCapituloCU>();
 
 
 

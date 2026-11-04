@@ -1,5 +1,6 @@
 ﻿using Dominio.Entities;
 using Dominio.Enums;
+using Dominio.Exceptions;
 using Dominio.InterfacesRepositorio;
 using DTOs.DTOs;
 using LogicaAplicacion.InterfacesCasosDeUso.Historias;
@@ -47,6 +48,10 @@ namespace LogicaAplicacion.CasosDeUso.Historias
                     if (categoria == null)  throw new Exception("Categoria inexistente.");
                     historia.Categorias.Add(categoria);
                 }
+            }
+            else
+            {
+                throw new HistoriaException("Debe elegir al menos una categoría.");
             }
 
             // El resto de las validaciones las agregamos acá.

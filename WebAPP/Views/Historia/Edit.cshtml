@@ -2,18 +2,19 @@
 @model HistoriaDTO
 
 <h1>Editar historia</h1>
+<br />
 
 <form asp-action="Edit" method="post">
 
     <input type="hidden" name="Id" value="@Model.Id" />
-
+    
     <label for="Titulo">Título</label>
-    <input type="text" name="Titulo" id="Titulo" value="@Model.Titulo" />
+    <input type="text" name="Titulo" id="Titulo" value="@Model.Titulo" /><br />
 
     <label for="Sinopsis">Sinopsis</label>
-    <input type="text" name="Sinopsis" id="Sinopsis" value="@Model.Sinopsis" />
+    <input type="text" name="Sinopsis" id="Sinopsis" value="@Model.Sinopsis" /><br />
 
-    <label>Categorías</label>
+    <label>Categorías</label><br />
 
     @foreach (CategoriaDTO categoria in ViewBag.Categorias)
     {
@@ -26,27 +27,33 @@
                    checked="@(Model.CategoriasId != null && Model.CategoriasId.Contains(categoria.Id))" />
         </label>
     }
+    <br />
 
     <label for="Estado">Estado</label>
     <select name="Estado" id="Estado">
         <option value="0" selected="@(Model.Estado == 0)">BORRADOR</option>
         <option value="1" selected="@(Model.Estado == 1)">PUBLICADA</option>
-    </select>
+    </select><br />
 
-    <h3>Capítulo inicial</h3>
+    <h3>Capítulo inicial</h3><br />
 
     <label for="TituloCapInicial">Título capítulo inicial:</label>
     <input type="text"
            name="TituloCapInicial"
            id="TituloCapInicial"
-           value="@Model.TituloCapInicial" />
+           value="@Model.TituloCapInicial" /><br />
 
     <label for="TextoCapInicial">Texto capítulo inicial:</label>
     <input type="text"
            name="TextoCapInicial"
            id="TextoCapInicial"
-           value="@Model.TextoCapInicial" />
+           value="@Model.TextoCapInicial" /><br />
 
     <input type="submit" value="Guardar cambios" />
 
 </form>
+
+    @if(ViewBag.Error != null)
+{
+    <p>@ViewBag.Error</p>
+}

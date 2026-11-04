@@ -1,4 +1,5 @@
-﻿using DTOs.DTOs;
+﻿using Dominio.Exceptions;
+using DTOs.DTOs;
 using LogicaAplicacion.InterfacesCasosDeUso.Categorias;
 using LogicaAplicacion.InterfacesCasosDeUso.Historias;
 using Microsoft.AspNetCore.Http;
@@ -81,7 +82,7 @@ namespace WebAPP.Controllers
                 ViewBag.Error = "Modificacion exitosa";
                 return RedirectToAction("Index");
             }
-            catch(Exception ex)
+            catch(HistoriaException ex)
             {
                 ViewBag.Error = ex.Message;
                 //si sale mal le vuelvo a recargar las cats
