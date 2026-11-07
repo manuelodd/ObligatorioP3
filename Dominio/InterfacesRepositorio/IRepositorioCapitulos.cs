@@ -9,5 +9,6 @@ namespace Dominio.InterfacesRepositorio
     {
         public void Add(Capitulo capitulo, Opcion opcion);
         public Capitulo FindUltimoCapitulo(int historiaId);
+        public List<Intermedio> FindAllAntecedentes(int historiaId);
     }
 }

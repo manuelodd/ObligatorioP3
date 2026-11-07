@@ -32,6 +32,14 @@ namespace LogicaAccesoDatos.RepositoriosEF.Repositorios
             throw new NotImplementedException();
         }
 
+        public List<Intermedio> FindAllAntecedentes(int historiaId)
+        {
+            return _context.Capitulos
+                .OfType<Intermedio>()
+                .Where(c => c.HistoriaId == historiaId)
+                .ToList();
+        }
+
         public Capitulo FindById(int id)
         {
             return _context.Capitulos   .Where(c => c.Id == id)

@@ -57,6 +57,8 @@ namespace WebAPP
             builder.Services.AddScoped<IListarCategorias, ListarCategoriasCU>();
             // inicializaciones CU capitulos
             builder.Services.AddScoped<IAltaCapitulo, AltaCapituloCU>();
+            builder.Services.AddScoped<IListarAntecedentesById, ListarAntecedentesByIdCU>();
+
 
 
 

@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Seleccionar historia";
+}
+
+<h1>Agregar capítulo</h1>
+
+<form asp-action="Create" method="get">
+
+    <div class="form-group">
+        <label>Historia</label>
+        <select name="historiaId" class="form-control">
+            <option value="">Seleccione una historia</option>
+
+            @foreach (var his in ViewBag.Historias)
+            {
+                <option value="@his.Id">@his.Titulo</option>
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        Continuar
+    </button>
+
+</form>

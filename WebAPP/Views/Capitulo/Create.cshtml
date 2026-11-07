@@ -1,23 +1,27 @@
 ﻿@model DTOs.DTOs.CapituloAltaDTO
 
-@{
-    ViewData["Title"] = "Agregar capítulo";
-}
-
 <h1>Agregar capítulo</h1>
 
 <form asp-action="Create" method="post">
 
+    <input type="hidden" asp-for="HistoriaId" />
+
     <div class="form-group">
-        <label asp-for="HistoriaId">Historia</label>
-        <select asp-for="HistoriaId"
-                asp-items="ViewBag.Historias"
-                class="form-control">
+        <label>Capítulo antecedente</label>
+
+        <select name="CapituloAntecedenteId" class="form-control">
+            <option value="">Seleccione un capitulo</option>
+
+            @foreach (var ante in ViewBag.Antecedentes)
+            {
+                <option value="@ante.CapId">@ante.CapTitulo</option>
+            }
         </select>
     </div>
 
     <div class="form-group">
-        <label asp-for="Tipo">Tipo de capítulo</label>
+        <label>Tipo</label>
+
         <select asp-for="Tipo" class="form-control">
             <option value="1">Intermedio</option>
             <option value="2">Final</option>
@@ -25,17 +29,17 @@
     </div>
 
     <div class="form-group">
-        <label asp-for="Titulo">Título</label>
+        <label>Título</label>
         <input asp-for="Titulo" class="form-control" />
     </div>
 
     <div class="form-group">
-        <label asp-for="Texto">Texto del capítulo</label>
+        <label>Texto</label>
         <textarea asp-for="Texto" class="form-control"></textarea>
     </div>
 
     <div class="form-group">
-        <label asp-for="TextoOpcion">Texto de la opción</label>
+        <label>Texto de opción</label>
         <input asp-for="TextoOpcion" class="form-control" />
     </div>
 
@@ -44,8 +48,3 @@
     </button>
 
 </form>
-
-@if(ViewBag.Error != null)
-{
-    <p>@ViewBag.Error</p>
-}
