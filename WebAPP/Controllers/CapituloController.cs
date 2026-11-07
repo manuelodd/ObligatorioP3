@@ -40,8 +40,24 @@ namespace WebAPP.Controllers
             };
 
             ViewBag.Antecedentes = findAllAntecedentesByIdCU.Execute(historiaId);
-
             return View(dto);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(CapituloAltaDTO dto)
+        {
+            try
+            {
+                altaCapituloCU.Execute(dto);
+                return RedirectToAction("Index", "Historia");
+            }
+            catch (CapituloException ex)
+            {
+                ViewBag.Error = ex.Message;
+                ViewBag.Antecedentes = findAllAntecedentesByIdCU.Execute(dto.HistoriaId);
+                return View(dto);
+            }
         }
 
 
@@ -57,25 +73,6 @@ namespace WebAPP.Controllers
             return View();
         }
 
-
-        // POST: CapituloController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(CapituloAltaDTO dto)
-        {
-            try
-            {
-                altaCapituloCU.Execute(dto);
-                return RedirectToAction("Index", "Historia");
-            }
-            catch(CapituloException ex)
-            {
-                ViewBag.Error = ex.Message;
-                return View(dto);
-            }
-        }
-
-        // GET: CapituloController/Edit/5
         public ActionResult Edit(int id)
         {
             return View();

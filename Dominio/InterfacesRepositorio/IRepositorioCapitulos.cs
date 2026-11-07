@@ -7,8 +7,7 @@ namespace Dominio.InterfacesRepositorio
 {
     public interface IRepositorioCapitulos : IRepositorio<Capitulo>
     {
-        public void Add(Capitulo capitulo, Opcion opcion);
-        public Capitulo FindUltimoCapitulo(int historiaId);
         public List<Intermedio> FindAllAntecedentes(int historiaId);
+        public void AgregarCapitulo(Intermedio antecedente, Capitulo nuevo, Opcion opcion, int historiaId);
     }
 }

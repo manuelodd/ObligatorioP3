@@ -14,22 +14,17 @@ namespace LogicaAccesoDatos.RepositoriosEF.Repositorios
         {
             _context = context;
         }
-        public void Add(Capitulo nuevo, Opcion opcion)
+
+        public void AgregarCapitulo(Intermedio antecedente, Capitulo nuevo, Opcion opcion, int historiaId)
         {
-            nuevo.Validar();
+            Intermedio ante = _context.Capitulos
+                                                .OfType<Intermedio>()
+                                                .Where(c => c.Id == antecedente.Id)
+                                                .FirstOrDefault();
+            nuevo.HistoriaId = historiaId;
+            ante.Opciones.Add(opcion);
             _context.Capitulos.Add(nuevo);
-            _context.Opciones.Add(opcion);
             _context.SaveChanges();
-        }
-
-        public void Add(Capitulo nuevo)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Capitulo> FindAll()
-        {
-            throw new NotImplementedException();
         }
 
         public List<Intermedio> FindAllAntecedentes(int historiaId)
@@ -42,19 +37,19 @@ namespace LogicaAccesoDatos.RepositoriosEF.Repositorios
 
         public Capitulo FindById(int id)
         {
-            return _context.Capitulos   .Where(c => c.Id == id)
+            return _context.Capitulos.Where(c => c.Id == id)
                                         .Include(c => c.Historia)
                                         .FirstOrDefault();
         }
 
-        public Capitulo FindUltimoCapitulo(int historiaId)
+        public void Add(Capitulo nuevo)
         {
-            return _context.Capitulos
-                                        .Where(c => c.HistoriaId == historiaId)
-                                        //el cap cuyo id no esta en SigCap de cualquier Opcion de cualquier capitulo de esa historia, es el 
-                                        //ultimo cap =D
-                                        .Where(c => !_context.Opciones.Any(o => o.SiguienteCapitulo.Id == c.Id))
-                                        .FirstOrDefault();
+            throw new NotImplementedException();
+        }
+
+        public List<Capitulo> FindAll()
+        {
+            throw new NotImplementedException();
         }
 
         public void Remove(int id)

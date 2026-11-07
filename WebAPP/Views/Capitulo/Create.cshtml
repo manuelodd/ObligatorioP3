@@ -2,10 +2,15 @@
 
 <h1>Agregar capítulo</h1>
 
+@if(ViewBag.Error != null)
+{
+    <p>@ViewBag.Error</p>
+}
+
 <form asp-action="Create" method="post">
 
     <input type="hidden" asp-for="HistoriaId" />
-
+    
     <div class="form-group">
         <label>Capítulo antecedente</label>
 
