@@ -14,7 +14,8 @@ namespace DTOs.Mappers
             return new CapitulosToListDTO
             {
                 CapId = capitulo.Id,
-                CapTitulo = capitulo.Titulo
+                CapTitulo = capitulo.Titulo,
+                CapTexto = capitulo.Texto
             };
         }
     }

@@ -16,5 +16,10 @@ namespace WebAPP.Controllers
         {
             return HttpContext.Session.GetString("username") != null;
         }
+
+        protected int UsuarioId()
+        {
+            return HttpContext.Session.GetInt32("usuarioid").Value;
+        }
     }
 }

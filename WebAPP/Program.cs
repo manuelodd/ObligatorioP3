@@ -2,10 +2,12 @@ using Dominio.InterfacesRepositorio;
 using LogicaAccesoDatos.RepositoriosEF;
 using LogicaAccesoDatos.RepositoriosEF.Repositorios;
 using LogicaAccesoDatos.RepositoriosMemoria;
+using LogicaAplicacion.CasosDeUso.Auditorias;
 using LogicaAplicacion.CasosDeUso.Capitulos;
 using LogicaAplicacion.CasosDeUso.Categorias;
 using LogicaAplicacion.CasosDeUso.Historias;
 using LogicaAplicacion.CasosDeUso.Usuarios;
+using LogicaAplicacion.InterfacesCasosDeUso.Auditorias;
 using LogicaAplicacion.InterfacesCasosDeUso.Capitulos;
 using LogicaAplicacion.InterfacesCasosDeUso.Categorias;
 using LogicaAplicacion.InterfacesCasosDeUso.Historias;
@@ -42,7 +44,7 @@ namespace WebAPP
             builder.Services.AddScoped<IRepositorioHistorias, RepositorioHistoriasEF>();
             builder.Services.AddScoped<IRepositorioCategorias, RepositorioCategoriasEF>();
             builder.Services.AddScoped<IRepositorioCapitulos, RepositorioCapitulosEF>();
-
+            builder.Services.AddScoped<IRepositorioAuditorias, RepositorioAuditoriasEF>();
             // inicializaciones CU usuarios
             builder.Services.AddScoped<IObtenerUsuarioPorId, ObtenerUsuarioPorIdCU>();
             builder.Services.AddScoped<IListarUsuarios, ListarUsuariosCU>();
@@ -53,12 +55,15 @@ namespace WebAPP
             builder.Services.AddScoped<IListarHistorias, ListarHistoriasCU>();
             builder.Services.AddScoped<IObtenerHistoriaPorId, ObtenerHistoriaPorIdCU>();
             builder.Services.AddScoped<IEditarHistoria, EditarHistoriaCU>();
+            builder.Services.AddScoped<IPublicarHistoria, PublicarHistoriaCU>();
             // inicializaciones CU categorias
             builder.Services.AddScoped<IListarCategorias, ListarCategoriasCU>();
             // inicializaciones CU capitulos
             builder.Services.AddScoped<IAltaCapitulo, AltaCapituloCU>();
             builder.Services.AddScoped<IListarAntecedentesById, ListarAntecedentesByIdCU>();
-
+            builder.Services.AddScoped<IEditarCapitulo, EditarCapituloCU>();
+            // inicializaciones CU auditorias
+            builder.Services.AddScoped<IRegistrarAuditoria, RegistrarAuditoriaCU>();
 
 
 
@@ -83,7 +88,7 @@ namespace WebAPP
             app.MapStaticAssets();
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Usuario}/{action=Index}/{id?}")
+                pattern: "{controller=Usuario}/{action=Login}/{id?}")
                 .WithStaticAssets();
 
             app.Run();

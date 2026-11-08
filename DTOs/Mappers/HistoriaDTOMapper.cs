@@ -37,12 +37,18 @@ namespace DTOs.Mappers
             {
                 categorias.Add(CategoriaDTOMapper.ToDTO(cat));
             }
+            List<CapitulosToListDTO> capitulos = new List<CapitulosToListDTO>();
+            foreach(Capitulo cap in historia.Capitulos)
+            {
+                capitulos.Add(CapitulosToListDTOMapper.ToDTO(cap));
+            }
             return new HistoriaDTO
             {
                 Id = historia.Id,
                 Titulo = historia.Titulo,
                 Sinopsis = historia.Sinopsis,
                 Categorias = categorias,
+                Capitulos = capitulos,
                 // por si el capitulo inicial todavia no existe (mayoria de casos) no tire errores SACAR DESPUES
                 CapituloInicialId = historia.CapituloInicial?.Id ?? 0,
                 Estado = (int)historia.Estado,

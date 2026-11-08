@@ -15,7 +15,8 @@ namespace LogicaAccesoDatos.RepositoriosEF
         public DbSet<Final> Finales { get; set; }
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Opcion> Opciones { get; set; }
-        public DbSet<Lectura> Lectura { get; set; }
+        public DbSet<Lectura> Lecturas { get; set; }
+        public DbSet<Auditoria> Auditorias { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

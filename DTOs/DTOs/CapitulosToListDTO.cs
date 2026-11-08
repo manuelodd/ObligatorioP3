@@ -8,5 +8,6 @@ namespace DTOs.DTOs
     {
         public int CapId { get; set; }
         public string CapTitulo {  get; set; }
+        public string CapTexto { get; set; }
     }
 }

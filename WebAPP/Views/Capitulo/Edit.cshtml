@@ -1,0 +1,27 @@
+﻿
+@model DTOs.DTOs.CapitulosToListDTO
+
+<h1>Editar capítulo</h1>
+
+<form asp-action="Edit" method="post">
+
+    <input type="hidden" asp-for="CapId" />
+
+    <label asp-for="CapTitulo">Título</label>
+    <input asp-for="CapTitulo" class="form-control" />
+
+    <br />
+
+    <label asp-for="CapTexto">Texto</label>
+    <textarea asp-for="CapTexto" class="form-control"></textarea>
+
+    <br />
+
+    <input type="submit" value="Guardar cambios" class="btn btn-primary" />
+
+</form>
+
+@if (ViewBag.Error != null)
+{
+    <p>@ViewBag.Error</p>
+}

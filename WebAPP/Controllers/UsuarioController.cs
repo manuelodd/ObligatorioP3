@@ -37,6 +37,7 @@ namespace WebAPP.Controllers
             try
             {
                 UsuarioDTO usuario = loginAdminsCU.Execute(dto);
+                HttpContext.Session.SetInt32("usuarioid", usuario.Id);
                 HttpContext.Session.SetString("username", usuario.Username);
 
             }

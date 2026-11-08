@@ -35,12 +35,6 @@
     }
     <br />
 
-    <label for="Estado">Estado</label>
-    <select name="Estado" id="Estado">
-        <option value="0" selected="@(Model.Estado == 0)">BORRADOR</option>
-        <option value="1" selected="@(Model.Estado == 1)">PUBLICADA</option>
-    </select><br />
-
     <h3>Capítulo inicial</h3><br />
 
     <label for="TituloCapInicial">Título capítulo inicial:</label>
@@ -57,7 +51,32 @@
 
     <input type="submit" value="Guardar cambios" />
 
+    @if (Model.Estado == 0)
+    {
+        <a asp-controller="Historia"
+           asp-action="Publicar"
+           asp-route-id="@Model.Id"
+           class="btn btn-success">
+            Publicar historia
+        </a>
+    }
+
 </form>
+
+@foreach (var capitulo in Model.Capitulos)
+{
+    <div>
+        <h3>@capitulo.CapTitulo</h3>
+        <p>@capitulo.CapTexto</p>
+
+        <a asp-controller="Capitulo"
+           asp-action="Edit"
+           asp-route-id="@capitulo.CapId"
+           class="btn btn-warning">
+            Editar
+        </a>
+    </div>
+}
 
     @if(ViewBag.Error != null)
 {

@@ -7,6 +7,6 @@ namespace LogicaAplicacion.InterfacesCasosDeUso.Capitulos
 {
     public interface IAltaCapitulo
     {
-        public void Execute(CapituloAltaDTO dto);
+        public void Execute(CapituloAltaDTO dto, int administradorId);
     }
 }

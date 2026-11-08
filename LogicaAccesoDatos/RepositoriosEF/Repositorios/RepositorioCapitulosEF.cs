@@ -42,6 +42,28 @@ namespace LogicaAccesoDatos.RepositoriosEF.Repositorios
                                         .FirstOrDefault();
         }
 
+        public void Update(Capitulo nuevo)
+        {
+
+            Capitulo capitulo = _context.Capitulos
+                                                    .Include(c => c.Historia)
+                                                    .FirstOrDefault(c => c.Id == nuevo.Id);
+
+            capitulo.Titulo = nuevo.Titulo;
+            capitulo.Texto = nuevo.Texto;
+
+            List<Opcion> opciones = _context.Opciones
+                                                            .Where(o => o.SiguienteCapitulo.Id == nuevo.Id)
+                                                            .ToList();
+
+            foreach (Opcion opcion in opciones)
+            {
+                opcion.Texto = nuevo.Texto;
+            }
+
+            _context.SaveChanges();
+        }
+
         public void Add(Capitulo nuevo)
         {
             throw new NotImplementedException();
@@ -57,9 +79,5 @@ namespace LogicaAccesoDatos.RepositoriosEF.Repositorios
             throw new NotImplementedException();
         }
 
-        public void Update(Capitulo nuevo)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

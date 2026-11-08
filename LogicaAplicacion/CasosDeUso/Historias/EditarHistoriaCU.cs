@@ -3,6 +3,8 @@ using Dominio.Enums;
 using Dominio.Exceptions;
 using Dominio.InterfacesRepositorio;
 using DTOs.DTOs;
+using LogicaAplicacion.CasosDeUso.Auditorias;
+using LogicaAplicacion.InterfacesCasosDeUso.Auditorias;
 using LogicaAplicacion.InterfacesCasosDeUso.Historias;
 using System;
 using System.Collections.Generic;
@@ -14,15 +16,18 @@ namespace LogicaAplicacion.CasosDeUso.Historias
     {
         private IRepositorioHistorias repositorio;
         private IRepositorioCategorias repositorioC;
+        private IRegistrarAuditoria regisAudi;
 
         public EditarHistoriaCU(    IRepositorioHistorias repo,
-                                    IRepositorioCategorias repoC)
+                                    IRepositorioCategorias repoC,
+                                    IRegistrarAuditoria regisAu)
         {
             repositorio = repo;
             repositorioC = repoC;
+            regisAudi = regisAu;
         }
 
-        public void Execute(HistoriaDTO dto)
+        public void Execute(HistoriaDTO dto, int administradorId)
         {
             Historia historia = repositorio.FindById(dto.Id);
 
@@ -30,9 +35,11 @@ namespace LogicaAplicacion.CasosDeUso.Historias
 
             historia.Titulo = dto.Titulo;
             historia.Sinopsis = dto.Sinopsis;
-            historia.Estado = (EstadoHistoria)dto.Estado;
             // capaz lo meto adentro del if, pero para no complicarme la vida lo hago asi
             historia.Categorias.Clear();
+
+            if (historia.Estado != EstadoHistoria.BORRADOR)
+                throw new HistoriaException("No se puede editar una historia publicada.");
 
             if (!repositorio.TieneMasDeUnCapitulo(dto.Id))
             {
@@ -53,10 +60,8 @@ namespace LogicaAplicacion.CasosDeUso.Historias
             {
                 throw new HistoriaException("Debe elegir al menos una categoría.");
             }
-
-            // El resto de las validaciones las agregamos acá.
-
             repositorio.Update(historia);
+            regisAudi.Execute(historia.Id, administradorId,AccionAuditoria.HISTORIA_EDIT);
         }
     }
 }

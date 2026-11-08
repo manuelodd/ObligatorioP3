@@ -1,5 +1,6 @@
 ﻿using Dominio.Exceptions;
 using DTOs.DTOs;
+using LogicaAplicacion.CasosDeUso.Historias;
 using LogicaAplicacion.InterfacesCasosDeUso.Categorias;
 using LogicaAplicacion.InterfacesCasosDeUso.Historias;
 using Microsoft.AspNetCore.Http;
@@ -15,18 +16,21 @@ namespace WebAPP.Controllers
         private IEditarHistoria editarHistoriaCU;
         private IListarCategorias findAllCatsCU;
         private IAltaHistoria altaHistoriaCU;
+        private IPublicarHistoria publicarHistoriaCU;
         public HistoriaController(      
                                     IListarCategorias findAllCatsCu,
                                     IAltaHistoria altaHistoriaCu,
                                     IListarHistorias findAllHistoriasCu,
                                     IEditarHistoria editarHistoriaCu,
-                                    IObtenerHistoriaPorId findByIdCu)
+                                    IObtenerHistoriaPorId findByIdCu,
+                                    IPublicarHistoria publicarHistoriaCu)
         {
             findAllCatsCU = findAllCatsCu;
             altaHistoriaCU = altaHistoriaCu;
             findAllHistoriasCU = findAllHistoriasCu;
             editarHistoriaCU = editarHistoriaCu;
             findByIdCU = findByIdCu;
+            publicarHistoriaCU = publicarHistoriaCu;
         }
 
         public ActionResult Index()
@@ -51,7 +55,7 @@ namespace WebAPP.Controllers
         {
             try
             {
-                altaHistoriaCU.Execute(dto);
+                altaHistoriaCU.Execute(dto, UsuarioId());
                 return RedirectToAction("Index");
             }
             catch(Exception ex)
@@ -78,7 +82,7 @@ namespace WebAPP.Controllers
         {
             try
             {
-                editarHistoriaCU.Execute(dto);
+                editarHistoriaCU.Execute(dto, UsuarioId());
                 ViewBag.Error = "Modificacion exitosa";
                 return RedirectToAction("Index");
             }
@@ -88,6 +92,20 @@ namespace WebAPP.Controllers
                 //si sale mal le vuelvo a recargar las cats
                 ViewBag.Categorias = findAllCatsCU.Execute();
                 return View(dto);
+            }
+        }
+
+        public IActionResult Publicar(int id)
+        {
+            try
+            {
+                publicarHistoriaCU.Execute(id, UsuarioId());
+                return RedirectToAction("Index");
+            }
+            catch (HistoriaException ex)
+            {
+                TempData["Error"] = ex.Message;
+                return RedirectToAction("Index");
             }
         }
 

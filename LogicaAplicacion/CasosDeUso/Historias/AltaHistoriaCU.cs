@@ -3,6 +3,8 @@ using Dominio.Exceptions;
 using Dominio.InterfacesRepositorio;
 using DTOs.DTOs;
 using DTOs.Mappers;
+using LogicaAplicacion.CasosDeUso.Auditorias;
+using LogicaAplicacion.InterfacesCasosDeUso.Auditorias;
 using LogicaAplicacion.InterfacesCasosDeUso.Historias;
 using System;
 using System.Collections.Generic;
@@ -14,25 +16,18 @@ namespace LogicaAplicacion.CasosDeUso.Historias
     {
         private IRepositorioHistorias repositorio;
         private IRepositorioCategorias repositorioC;
-        public AltaHistoriaCU(IRepositorioHistorias repo, IRepositorioCategorias repoc)
+        private IRegistrarAuditoria regisAudi;
+
+        public AltaHistoriaCU(  IRepositorioHistorias repo, 
+                                IRepositorioCategorias repoc,
+                                IRegistrarAuditoria regisAu)
         {
             repositorio = repo;
             repositorioC = repoc;
+            regisAudi = regisAu;
         }
-        /*
-        public void Execute(HistoriaDTO dto)
-        {
-            List<CategoriaDTO> listado = new List<CategoriaDTO>();
-            foreach(int idC in dto.CategoriasId)
-            {
-                listado.Add(CategoriaDTOMapper.ToDTO(repositorioC.FindById(idC)));
-            }
-            dto.Categorias = listado;
-            repositorio.Add(HistoriaDTOMapper.FromDTO(dto));
-        }
-        */
 
-        public void Execute(HistoriaDTO dto)
+        public void Execute(HistoriaDTO dto, int adminId)
         {
             Historia historia = HistoriaDTOMapper.FromDTO(dto);
             historia.Categorias = new List<Categoria>();
@@ -50,6 +45,7 @@ namespace LogicaAplicacion.CasosDeUso.Historias
                 throw new HistoriaException("Debe seleccionar al menos una categoria");
             }
             repositorio.Add(historia);
+            regisAudi.Execute(historia.Id, adminId, Dominio.Enums.AccionAuditoria.HISTORIA_CREATE);
         }
     }
 }

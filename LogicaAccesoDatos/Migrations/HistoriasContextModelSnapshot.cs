@@ -37,6 +37,31 @@ namespace LogicaAccesoDatos.Migrations
                     b.ToTable("CategoriaHistoria");
                 });
 
+            modelBuilder.Entity("Dominio.Entities.Auditoria", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Accion")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AdministradorId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("HistoriaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Auditorias");
+                });
+
             modelBuilder.Entity("Dominio.Entities.Capitulo", b =>
                 {
                     b.Property<int>("Id")
@@ -149,7 +174,7 @@ namespace LogicaAccesoDatos.Migrations
 
                     b.HasIndex("UsuarioId");
 
-                    b.ToTable("Lectura");
+                    b.ToTable("Lecturas");
                 });
 
             modelBuilder.Entity("Dominio.Entities.Opcion", b =>

@@ -1,4 +1,6 @@
-﻿using Dominio.Exceptions;
+﻿using Dominio.Entities;
+using Dominio.Exceptions;
+using Dominio.InterfacesRepositorio;
 using DTOs.DTOs;
 using LogicaAplicacion.CasosDeUso.Capitulos;
 using LogicaAplicacion.CasosDeUso.Historias;
@@ -12,17 +14,23 @@ namespace WebAPP.Controllers
 {
     public class CapituloController : QOLController
     {
+        private IRepositorioCapitulos repositorioCaps;
         private IListarHistorias findAllHistoriasCU;
         private IAltaCapitulo altaCapituloCU;
         private IListarAntecedentesById findAllAntecedentesByIdCU;
+        private IEditarCapitulo editarCapituloCU;
 
         public CapituloController(  IListarHistorias findAllHistoriasCu,
                                     IAltaCapitulo altaCapituloCu,
-                                    IListarAntecedentesById findAllAntecedentesByIdCu)
+                                    IListarAntecedentesById findAllAntecedentesByIdCu,
+                                    IEditarCapitulo editarCapituloCu,
+                                    IRepositorioCapitulos repoCaps)
         {
             findAllHistoriasCU = findAllHistoriasCu;
             altaCapituloCU = altaCapituloCu;
             findAllAntecedentesByIdCU = findAllAntecedentesByIdCu;
+            editarCapituloCU = editarCapituloCu;
+            repositorioCaps = repoCaps;
         }
 
         //2 views distintas para seleccionar historia primero y despues mandar a select antecedentes y alta de cap)
@@ -49,13 +57,48 @@ namespace WebAPP.Controllers
         {
             try
             {
-                altaCapituloCU.Execute(dto);
+                altaCapituloCU.Execute(dto, UsuarioId());
                 return RedirectToAction("Index", "Historia");
             }
             catch (CapituloException ex)
             {
                 ViewBag.Error = ex.Message;
                 ViewBag.Antecedentes = findAllAntecedentesByIdCU.Execute(dto.HistoriaId);
+                return View(dto);
+            }
+        }
+
+        public ActionResult Edit(int id)
+        {
+            Capitulo capitulo = repositorioCaps.FindById(id);
+            if(capitulo == null)
+            {
+                return NotFound();
+            }
+
+            CapitulosToListDTO dto = new CapitulosToListDTO
+            {
+                CapId = capitulo.Id,
+                CapTitulo = capitulo.Titulo,
+                CapTexto = capitulo.Texto,
+            };
+
+            return View(dto);
+        }
+
+        // POST: CapituloController/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(CapitulosToListDTO dto)
+        {
+            try
+            {
+                editarCapituloCU.Execute(dto, UsuarioId());
+                return RedirectToAction("Index", "Historia");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
                 return View(dto);
             }
         }
@@ -71,26 +114,6 @@ namespace WebAPP.Controllers
         public ActionResult Details(int id)
         {
             return View();
-        }
-
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: CapituloController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
         }
 
         // GET: CapituloController/Delete/5
