@@ -38,7 +38,7 @@ namespace LogicaAplicacion.CasosDeUso.Capitulos
 
 
             //validaciones en caso de recibir un DTO modificado, utilizando la interfaz de usuario son redundantes
-            //siempre va a pertenecer a la historia y siempre va a ser intermedio
+            //siempre va a pertenecer a la historia y siempre va a ser intermedio por como estan implementados los selects
             if (antecedente.HistoriaId != historia.Id)
                                                         throw new CapituloException("El antecedente no pertenece a la historia.");
             if (antecedente is not Intermedio intermedio)

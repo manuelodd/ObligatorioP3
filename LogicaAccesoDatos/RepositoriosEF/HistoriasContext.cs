@@ -18,11 +18,7 @@ namespace LogicaAccesoDatos.RepositoriosEF
         public DbSet<Lectura> Lecturas { get; set; }
         public DbSet<Auditoria> Auditorias { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer
-                    (@"SERVER=(localdb)\MsSqlLocalDb;DATABASE=Historias;Integrated Security=true");
-        }
+        public HistoriasContext(DbContextOptions dbContext) : base(dbContext) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

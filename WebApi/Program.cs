@@ -1,4 +1,5 @@
 using Dominio.InterfacesRepositorio;
+using LogicaAccesoDatos.RepositoriosEF;
 using LogicaAccesoDatos.RepositoriosEF.Repositorios;
 using LogicaAplicacion.CasosDeUso.Categorias;
 using LogicaAplicacion.CasosDeUso.Historias;
@@ -7,6 +8,7 @@ using LogicaAplicacion.InterfacesCasosDeUso.Categorias;
 using LogicaAplicacion.InterfacesCasosDeUso.Historias;
 using LogicaAplicacion.InterfacesCasosDeUso.Usuario;
 using LogicaAplicacion.InterfacesCasosDeUso.Usuarios;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +18,10 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<HistoriasContext>
+    (options => options.UseSqlServer(builder.Configuration.GetConnectionString("Historias"))
+    );
 
 // inicializaciones repositorios
 builder.Services.AddScoped<IRepositorioUsuarios, RepositorioUsuariosEF>();
