@@ -50,9 +50,9 @@ namespace DTOs.Mappers
                 Categorias = categorias,
                 Capitulos = capitulos,
                 // por si el capitulo inicial todavia no existe (mayoria de casos) no tire errores SACAR DESPUES
-                CapituloInicialId = historia.CapituloInicial?.Id ?? 0,
+                CapituloInicialId = historia.CapituloInicialId,
                 Estado = (int)historia.Estado,
-                TextoCapInicial = historia.CapituloInicial?.Texto,
+                TextoCapInicial = historia.CapituloInicial.Texto,
                 TituloCapInicial = historia.CapituloInicial.Titulo
                 
             };

@@ -45,10 +45,10 @@ namespace LogicaAccesoDatos.RepositoriosEF.Repositorios
 
         public Historia FindById(int id)
         {
-            return _context.Historias
+            return _context.Historias   .Where(h => h.Id == id)
                                         .Include(h => h.Capitulos)
-                                        .ThenInclude(c => ((Intermedio)c).Opciones)
-                                        .Where(h => h.Id == id)
+                                            .ThenInclude(c => ((Intermedio)c).Opciones)
+                                        .Include(h => h.CapituloInicial)
                                         .FirstOrDefault();
         }
 

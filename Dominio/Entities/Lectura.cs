@@ -12,17 +12,22 @@ namespace Dominio.Entities
     public class Lectura : IValidable
     {
         public int Id { get; set; }
-        public Usuario Usuario { get;set; }
-        public Historia Historia { get; set; }
-        public DateTime FechaInicio { get; set; }
 
-        //si corresponden
+        public Usuario Usuario { get; set; }
+        public int UsuarioId { get; set; }
+
+        public Historia Historia { get; set; }
+        public int HistoriaId { get; set; }
+        public Capitulo CapituloActual { get; set; }
+        public int CapituloActualId { get; set; }
+        public Final FinalAlcanzado { get; set; }
+        public int? FinalAlcanzadoId { get; set; }
+        public DateTime FechaInicio { get; set; }
         public DateTime? FechaFin { get; set; }
-        public Final? FinalAlcanzado { get; set; }
 
         public void Validar()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }
