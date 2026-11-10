@@ -10,5 +10,7 @@ namespace Dominio.InterfacesRepositorio
         public List<Intermedio> FindAllAntecedentes(int historiaId);
         public void AgregarCapitulo(Intermedio antecedente, Capitulo nuevo, Opcion opcion, int historiaId);
         //public void EditarCapitulo(Capitulo nuevo);
+        public bool ExisteOpcionEnCapitulo(int opcionId, int capituloId);
+        public void IncrementarVecesAlcanzado(int finalId);
     }
 }

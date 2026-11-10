@@ -22,7 +22,11 @@ namespace LogicaAccesoDatos.RepositoriosEF.Repositorios
 
         public List<Lectura> FindAll()
         {
-            throw new NotImplementedException();
+            return _context.Lecturas.Include(l => l.Usuario)
+                                        .Include(l => l.Historia)
+                                        .Include(l => l.CapituloActual)
+                                        .Include(l => l.FinalAlcanzado)
+                                        .ToList();
         }
 
         public Lectura FindById(int id)
@@ -44,7 +48,8 @@ namespace LogicaAccesoDatos.RepositoriosEF.Repositorios
 
         public void Update(Lectura nuevo)
         {
-            throw new NotImplementedException();
+            _context.Lecturas.Update(nuevo);
+            _context.SaveChanges();
         }
     }
 }

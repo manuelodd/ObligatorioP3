@@ -35,6 +35,13 @@ namespace LogicaAccesoDatos.RepositoriosEF.Repositorios
                 .ToList();
         }
 
+        public bool ExisteOpcionEnCapitulo(int opcionId, int capituloId)
+        {
+            return _context.Capitulos
+                                            .OfType<Intermedio>()
+                                            .Any(c => c.Id == capituloId && c.Opciones.Any(o => o.Id == opcionId));
+        }
+
         public Capitulo FindById(int id)
         {
             return _context.Capitulos.Where(c => c.Id == id)
@@ -61,6 +68,14 @@ namespace LogicaAccesoDatos.RepositoriosEF.Repositorios
                 opcion.Texto = nuevo.Texto;
             }
 
+            _context.SaveChanges();
+        }
+
+        public void IncrementarVecesAlcanzado(int finalId)
+        {
+            Final final = _context.Finales  .Where(f => f.Id == finalId)
+                                            .FirstOrDefault();
+            final.CantidadVecesAlcanzado++;
             _context.SaveChanges();
         }
 

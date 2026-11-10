@@ -65,6 +65,20 @@ namespace WebApi.Controllers
             }
         }
 
+        [HttpPost("Login")]
+        public ActionResult<UsuarioDTO> Login(LoginDTO dto)
+        {
+            try
+            {
+                UsuarioDTO usuario = loginCU.Execute(dto);
+                return Ok(usuario);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         // POST api/<UsuarioController>
         [HttpPost]
         public ActionResult Post([FromBody] UsuarioDTO dto)
