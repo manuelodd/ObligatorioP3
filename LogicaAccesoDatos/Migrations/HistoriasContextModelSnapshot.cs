@@ -17,7 +17,7 @@ namespace LogicaAccesoDatos.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.14")
+                .HasAnnotation("ProductVersion", "10.0.15")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -122,7 +122,7 @@ namespace LogicaAccesoDatos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CapituloInicialId")
+                    b.Property<int>("CapituloInicialId")
                         .HasColumnType("int");
 
                     b.Property<int>("Estado")
@@ -151,6 +151,9 @@ namespace LogicaAccesoDatos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CapituloActualId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("FechaFin")
                         .HasColumnType("datetime2");
 
@@ -167,6 +170,8 @@ namespace LogicaAccesoDatos.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CapituloActualId");
 
                     b.HasIndex("FinalAlcanzadoId");
 
@@ -272,13 +277,20 @@ namespace LogicaAccesoDatos.Migrations
                     b.HasOne("Dominio.Entities.Capitulo", "CapituloInicial")
                         .WithMany()
                         .HasForeignKey("CapituloInicialId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("CapituloInicial");
                 });
 
             modelBuilder.Entity("Dominio.Entities.Lectura", b =>
                 {
+                    b.HasOne("Dominio.Entities.Capitulo", "CapituloActual")
+                        .WithMany()
+                        .HasForeignKey("CapituloActualId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("Dominio.Entities.Final", "FinalAlcanzado")
                         .WithMany()
                         .HasForeignKey("FinalAlcanzadoId");
@@ -294,6 +306,8 @@ namespace LogicaAccesoDatos.Migrations
                         .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("CapituloActual");
 
                     b.Navigation("FinalAlcanzado");
 

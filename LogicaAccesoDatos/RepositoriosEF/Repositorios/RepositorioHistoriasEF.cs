@@ -18,7 +18,6 @@ namespace LogicaAccesoDatos.RepositoriosEF.Repositorios
         public void Add(Historia nuevo)
         {
             nuevo.CapituloInicial = null;
-            nuevo.CapituloInicialId = null;
 
             // Guardamos la historia y sus capítulos.
             _context.Historias.Add(nuevo);

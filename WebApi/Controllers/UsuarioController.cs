@@ -16,7 +16,7 @@ namespace WebApi.Controllers
     {
         private IListarUsuarios listarUsuariosCU;
         private IObtenerUsuarioPorId obtenerUsuarioPorIdCU;
-        private IAltaUsuario altaUsuCU
+        private IAltaUsuario altaUsuCU;
 
         public UsuarioController(IListarUsuarios listarUsuariosCu,
                                     IObtenerUsuarioPorId obtCU,
@@ -64,7 +64,7 @@ namespace WebApi.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
-
+        /*
         [HttpPost("Login")]
         public ActionResult<UsuarioDTO> Login(LoginDTO dto)
         {
@@ -78,7 +78,7 @@ namespace WebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
+        */
         // POST api/<UsuarioController>
         [HttpPost]
         public ActionResult Post([FromBody] UsuarioDTO dto)

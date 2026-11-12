@@ -28,7 +28,7 @@ namespace LogicaAplicacion.CasosDeUso.Usuarios
             }
             else
             {
-                throw new UsuarioException("El usuario ingresado no existe.");
+                throw new UsuarioException("Credenciales inválidas.");
             }
         }
     }

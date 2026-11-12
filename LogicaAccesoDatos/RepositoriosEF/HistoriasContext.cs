@@ -47,6 +47,12 @@ namespace LogicaAccesoDatos.RepositoriosEF
             modelBuilder.Entity<Historia>()
                 .HasMany(h => h.Categorias)
                 .WithMany();
+
+            modelBuilder.Entity<Lectura>()
+                .HasOne(l => l.CapituloActual)
+                .WithMany()
+                .HasForeignKey(l => l.CapituloActualId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
