@@ -1,5 +1,6 @@
 ﻿using DTOs.DTOs;
 using LogicaAplicacion.InterfacesCasosDeUso.Historias;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -9,12 +10,19 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class HistoriaController : ControllerBase
     {
-            private IObtenerRankingsHistorias obtenerRankingsHistoriasCU;
-            public HistoriaController(IObtenerRankingsHistorias obtenerRankingsHistoriasCu)
+        private IObtenerRankingsHistorias obtenerRankingsHistoriasCU;
+        private IListarHistoriasPublicadas listarHistoriasPublicadasCU;
+        private IObtenerFinalesAlcanzadosHistoria obtenerFinalesCU;
+        public HistoriaController(  IObtenerRankingsHistorias obtenerRankingsHistoriasCu,
+                                        IListarHistoriasPublicadas listarHistoriasPublicadasCu,
+                                        IObtenerFinalesAlcanzadosHistoria obtenerFinalesMasAlcanzadosCu)
             {
                 obtenerRankingsHistoriasCU = obtenerRankingsHistoriasCu;
+                listarHistoriasPublicadasCU = listarHistoriasPublicadasCu;
+                obtenerFinalesCU = obtenerFinalesMasAlcanzadosCu;
             }
 
 
@@ -30,42 +38,41 @@ namespace WebApi.Controllers
                 }
                 catch (Exception ex)
                 {
-                    return StatusCode(500, "Error, vuelva a intentar mas tarde");
+                    return StatusCode(500, "Error al intentar devolver los rankings");
                 }
             }
 
-
-
-            // GET: api/<HistoriaController>
-            [HttpGet]
-        public IEnumerable<string> Get()
+        [HttpGet("Publicadas")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        public ActionResult<List<HistoriaToListDTO>> Publicadas(int? categoriaid)
         {
-            return new string[] { "value1", "value2" };
+            try
+            {
+                List<HistoriaToListDTO> lista = listarHistoriasPublicadasCU.Execute(categoriaid);
+                return Ok(lista);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Error al intentar devolver las historias publicadas");
+            }
         }
 
-        // GET api/<HistoriaController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{historiaId}/finales-alcanzados")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        public IActionResult FinalesHistoria(int historiaId)
         {
-            return "value";
+            try
+            {
+                List<FinalesAlcanzadosDTO> finales =    obtenerFinalesCU.Execute(historiaId);
+                return Ok(finales);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Error al obtener finales de historia.");
+            }
         }
 
-        // POST api/<HistoriaController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<HistoriaController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<HistoriaController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

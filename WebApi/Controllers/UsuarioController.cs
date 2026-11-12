@@ -14,73 +14,37 @@ namespace WebApi.Controllers
     [ApiController]
     public class UsuarioController : ControllerBase
     {
-        private IListarUsuarios listarUsuariosCU;
-        private IObtenerUsuarioPorId obtenerUsuarioPorIdCU;
+        private IObtenerUsuarioHistoriasRankings obtenerRankingUsuariosCU;
         private IAltaUsuario altaUsuCU;
 
-        public UsuarioController(IListarUsuarios listarUsuariosCu,
-                                    IObtenerUsuarioPorId obtCU,
-                                    IAltaUsuario altaUsuCu)
+        public UsuarioController(   
+                                    IAltaUsuario altaUsuCu,
+                                    IObtenerUsuarioHistoriasRankings obtenerRankingUsuariosCu)
         {
-            this.listarUsuariosCU = listarUsuariosCu;
-            obtenerUsuarioPorIdCU = obtCU;
             altaUsuCU = altaUsuCu;
+            obtenerRankingUsuariosCU = obtenerRankingUsuariosCu;
         }
 
-
-        // GET: api/<UsuarioController>
-        [HttpGet]
-        public ActionResult<IEnumerable<UsuarioDTO>> Get()
-        {
-            try
-            {
-                return Ok(listarUsuariosCU.Execute());
-            }
-            catch(Exception ex)
-            {
-                // 500 = internal server error
-                return StatusCode(500, ex.Message);
-            }
-            ;
-        }
-
-        // GET api/<UsuarioController>/5
-        [HttpGet("{id}")]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [HttpGet("rankings/historias-completadas")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        public ActionResult<UsuarioDTO> Get(int id)
+        public IActionResult RankingHistoriasCompletadas()
         {
             try
             {
-                return Ok(obtenerUsuarioPorIdCU.Execute(id));
+                List<UsuarioHistoriasRankingsDTO> ranking = obtenerRankingUsuariosCU.Execute();
+                return Ok(ranking);
             }
-            catch (UsuarioException uex)
+            catch (Exception)
             {
-                return BadRequest(uex.Message);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
+                return StatusCode(500, "Error al obtener el ranking.");
             }
         }
-        /*
-        [HttpPost("Login")]
-        public ActionResult<UsuarioDTO> Login(LoginDTO dto)
-        {
-            try
-            {
-                UsuarioDTO usuario = loginCU.Execute(dto);
-                return Ok(usuario);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        */
-        // POST api/<UsuarioController>
+
         [HttpPost]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.Created)]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         public ActionResult Post([FromBody] UsuarioDTO dto)
         {
             try
@@ -91,18 +55,12 @@ namespace WebApi.Controllers
             catch (UsuarioException uex) { 
             return BadRequest(uex.Message);
             }
+            catch(Exception ex)
+            {
+                return StatusCode(500, "Error, vuelva a intentar luego.");
+            }
         }
 
-        // PUT api/<UsuarioController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
 
-        // DELETE api/<UsuarioController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

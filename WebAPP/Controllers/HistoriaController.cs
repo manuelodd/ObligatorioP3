@@ -107,6 +107,7 @@ namespace WebAPP.Controllers
             try
             {
                 publicarHistoriaCU.Execute(id, UsuarioId());
+                TempData["Mensaje"] = "Historia publicada correctamente.";
                 return RedirectToAction("Index");
             }
             catch (HistoriaException ex)

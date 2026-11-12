@@ -21,7 +21,7 @@ namespace LogicaAplicacion.CasosDeUso.Lecturas
             Lectura lectura = repositorio.FindById(lecturaId);
 
             if (lectura == null) throw new Exception("Lectura no existe.");
-            if (lectura.FechaFin != null) throw new Exception("Lectura terminada.");
+            //if (lectura.FechaFin != null) throw new Exception("Lectura terminada.");
 
             Capitulo capitulo = lectura.CapituloActual;
 

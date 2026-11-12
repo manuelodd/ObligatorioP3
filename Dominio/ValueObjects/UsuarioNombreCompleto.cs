@@ -20,6 +20,11 @@ namespace Dominio.ValueObjects
             this.Apellido = apellido;
         }
 
+        public override string ToString()
+        {
+            return Nombre + " " + Apellido;
+        }
+
         public void Validar()
         {
             throw new NotImplementedException();

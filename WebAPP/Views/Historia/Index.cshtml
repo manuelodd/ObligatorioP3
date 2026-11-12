@@ -5,11 +5,15 @@
     ViewData["Title"] = "Historias";
 }
 
-@if (ViewBag.Error != null)
+@if (TempData["Error"] != null)
 {
-    <p>@ViewBag.Error</p>
+    <p>@TempData["Error"]</p>
 }
 
+@if (TempData["Mensaje"] != null)
+{
+    <p>@TempData["Mensaje"]</p>
+}
 
 <h1>Lista de historias</h1>
 
