@@ -17,16 +17,14 @@ namespace LogicaAccesoDatos.RepositoriosEF.Repositorios
 
         public void Add(Historia nuevo)
         {
-            nuevo.CapituloInicial = null;
+            Capitulo inicial = nuevo.Capitulos[0];
 
-            // Guardamos la historia y sus capítulos.kkjk
+            nuevo.CapituloInicial = null;
+            nuevo.CapituloInicialId = null;
+
             _context.Historias.Add(nuevo);
             _context.SaveChanges();
 
-            // Ahora el capítulo ya tiene su Id.
-            Capitulo inicial = nuevo.Capitulos[0];
-
-            // Establecemos la relación con el capítulo inicial.
             nuevo.CapituloInicial = inicial;
             nuevo.CapituloInicialId = inicial.Id;
 

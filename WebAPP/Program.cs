@@ -38,8 +38,8 @@ namespace WebAPP
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddAuthorization();
 
-            // singleton ed Context
             builder.Services.AddDbContext<HistoriasContext>();
             // inicializaciones repositorios
             builder.Services.AddScoped<IRepositorioUsuarios, RepositorioUsuariosEF>();
@@ -74,6 +74,7 @@ namespace WebAPP
             builder.Services.AddScoped<IEditarCapitulo, EditarCapituloCU>();
             // inicializaciones CU auditorias
             builder.Services.AddScoped<IRegistrarAuditoria, RegistrarAuditoriaCU>();
+            builder.Services.AddScoped<IListarAuditorias, ListarAuditoriasCU>();
             // inicializaciones CU lecturas
             builder.Services.AddScoped<IEmpezarLectura, EmpezarLecturaCU>();
             builder.Services.AddScoped<IObtenerCapituloLectura, ObtenerCapituloLecturaCU>();
@@ -92,10 +93,11 @@ namespace WebAPP
                 app.UseHsts();
             }
 
-            app.UseSession();
             app.UseHttpsRedirection();
             app.UseRouting();
 
+            app.UseSession();
+            
             app.UseAuthorization();
 
             app.MapStaticAssets();

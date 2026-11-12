@@ -35,61 +35,65 @@ namespace WebAPP.Controllers
 
         public ActionResult Index()
         {
+            if (!UsuarioLogeado() || UsuarioRol() != 0)
+                return RedirectToAction("Login", "Usuario");
+
             return View(findAllHistoriasCU.Execute());
         }
 
-        // GET: HistoriaControler/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: HistoriaControler/Create
         public ActionResult Create()
         {
+            if (!UsuarioLogeado() || UsuarioRol() != 0)
+                return RedirectToAction("Login", "Usuario");
+
             return View(findAllCatsCU.Execute());
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(HistoriaDTO dto)
         {
+            if (!UsuarioLogeado() || UsuarioRol() != 0)
+                return RedirectToAction("Login", "Usuario");
+
             try
             {
                 altaHistoriaCU.Execute(dto, UsuarioId());
                 return RedirectToAction("Index");
             }
-            catch(Exception ex)
-
-            //ACA SALTA LA EX
+            catch (Exception ex)
             {
                 ViewBag.Error = ex.Message;
+                return View(dto);
             }
-            return RedirectToAction("Index", "Historia");
         }
 
-        // GET: HistoriaControler/Edit/5
         public ActionResult Edit(int id)
         {
+            if (!UsuarioLogeado() || UsuarioRol() != 0)
+                return RedirectToAction("Login", "Usuario");
+
             HistoriaDTO his = findByIdCU.Execute(id);
             ViewBag.Categorias = findAllCatsCU.Execute();
+
             return View(his);
         }
 
-        // POST: HistoriaControler/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(HistoriaDTO dto)
         {
+            if (!UsuarioLogeado() || UsuarioRol() != 0)
+                return RedirectToAction("Login", "Usuario");
+
             try
             {
                 editarHistoriaCU.Execute(dto, UsuarioId());
-                ViewBag.Error = "Modificacion exitosa";
                 return RedirectToAction("Index");
             }
-            catch(HistoriaException ex)
+            catch (HistoriaException ex)
             {
                 ViewBag.Error = ex.Message;
-                //si sale mal le vuelvo a recargar las cats
                 ViewBag.Categorias = findAllCatsCU.Execute();
                 return View(dto);
             }
@@ -97,6 +101,9 @@ namespace WebAPP.Controllers
 
         public IActionResult Publicar(int id)
         {
+            if (!UsuarioLogeado() || UsuarioRol() != 0)
+                return RedirectToAction("Login", "Usuario");
+
             try
             {
                 publicarHistoriaCU.Execute(id, UsuarioId());
@@ -109,25 +116,5 @@ namespace WebAPP.Controllers
             }
         }
 
-        // GET: HistoriaControler/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: HistoriaControler/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }

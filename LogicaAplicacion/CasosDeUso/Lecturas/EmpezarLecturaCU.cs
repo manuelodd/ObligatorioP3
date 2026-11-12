@@ -40,7 +40,7 @@ namespace LogicaAplicacion.CasosDeUso.Lecturas
                 UsuarioId = usuarioId,
                 HistoriaId = historiaId,
                 FechaInicio = DateTime.Now,
-                CapituloActualId = historia.CapituloInicialId
+                CapituloActualId = historia.CapituloInicialId ?? 0
             };
 
             repositorio.Add(lectura);

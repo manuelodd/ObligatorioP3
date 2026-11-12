@@ -1,9 +1,8 @@
-﻿@using DTOs.DTOs
-@model List<DTOs.DTOs.UsuarioDTO>
-
-@{
-    ViewData["Title"] = "Usuarios";
+﻿@{
+    ViewData["Title"] = "Administración";
 }
+
+<h1>Administración</h1>
 
 <a asp-controller="Usuario" asp-action="Create">
     Crear usuario
@@ -13,41 +12,18 @@
     Crear historia
 </a>
 
-
-<a asp-controller="Historia" asp-action="Index">
-    Ver Historias
+<a asp-controller="Capitulo" asp-action="SeleccionarHistoria">
+    Crear capítulo
 </a>
 
-<h1>Lista de usuarios</h1>
+<a asp-controller="Historia" asp-action="Index">
+    Ver historias
+</a>
 
-<table>
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Email</th>
-            <th>Rol</th>
-            <th>Username</th>
-            <th>Password</th>
-        </tr>
-    </thead>
+<a asp-controller="Auditoria" asp-action="Index">
+    Ver auditorías
+</a>
 
-    <tbody>
-        @foreach (UsuarioDTO usuario in Model)
-        {
-            <tr>
-                <td>@usuario.Id</td>
-                <td>@usuario.Nombre</td>
-                <td>@usuario.Apellido</td>
-                <td>@usuario.Email</td>
-                <td>@usuario.Rol</td>
-                <td>@usuario.Username</td>
-                <td>@usuario.Password</td>
-
-                <td> <a asp-controller="Usuario" asp-action="Details" asp-route-id="@usuario.Id"> Ver detalles </a> </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
+<form asp-controller="Usuario" asp-action="Logout" method="post">
+    <button type="submit">Cerrar sesión</button>
+</form>

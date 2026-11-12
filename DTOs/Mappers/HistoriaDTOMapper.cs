@@ -49,7 +49,7 @@ namespace DTOs.Mappers
                 Sinopsis = historia.Sinopsis,
                 Categorias = categorias,
                 Capitulos = capitulos,
-                CapituloInicialId = historia.CapituloInicialId,
+                CapituloInicialId = historia.CapituloInicialId ?? 0,
                 Estado = (int)historia.Estado,
                 TextoCapInicial = historia.CapituloInicial.Texto,
                 TituloCapInicial = historia.CapituloInicial.Titulo

@@ -17,7 +17,7 @@ namespace LogicaAccesoDatos.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.15")
+                .HasAnnotation("ProductVersion", "10.0.14")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -122,7 +122,7 @@ namespace LogicaAccesoDatos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CapituloInicialId")
+                    b.Property<int?>("CapituloInicialId")
                         .HasColumnType("int");
 
                     b.Property<int>("Estado")
@@ -277,8 +277,7 @@ namespace LogicaAccesoDatos.Migrations
                     b.HasOne("Dominio.Entities.Capitulo", "CapituloInicial")
                         .WithMany()
                         .HasForeignKey("CapituloInicialId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("CapituloInicial");
                 });

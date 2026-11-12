@@ -33,15 +33,22 @@ namespace WebAPP.Controllers
             repositorioCaps = repoCaps;
         }
 
-        //2 views distintas para seleccionar historia primero y despues mandar a select antecedentes y alta de cap)
+        //2 views distintas para seleccionar historia primero y
+        //despues mandar a select antecedentes y alta de cap, no me complico con js
         public ActionResult SeleccionarHistoria()
         {
+            if (!UsuarioLogeado() || UsuarioRol() != 0)
+                return RedirectToAction("Login", "Usuario");
+
             ViewBag.Historias = findAllHistoriasCU.Execute();
             return View();
         }
 
         public ActionResult Create(int historiaId)
         {
+            if (!UsuarioLogeado() || UsuarioRol() != 0)
+                return RedirectToAction("Login", "Usuario");
+
             CapituloAltaDTO dto = new CapituloAltaDTO
             {
                 HistoriaId = historiaId
@@ -55,6 +62,9 @@ namespace WebAPP.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(CapituloAltaDTO dto)
         {
+            if (!UsuarioLogeado() || UsuarioRol() != 0)
+                return RedirectToAction("Login", "Usuario");
+
             try
             {
                 altaCapituloCU.Execute(dto, UsuarioId());
@@ -63,6 +73,7 @@ namespace WebAPP.Controllers
             catch (CapituloException ex)
             {
                 ViewBag.Error = ex.Message;
+                //tengo q volver a cargar el viewbag en caso de error
                 ViewBag.Antecedentes = findAllAntecedentesByIdCU.Execute(dto.HistoriaId);
                 return View(dto);
             }
@@ -70,27 +81,31 @@ namespace WebAPP.Controllers
 
         public ActionResult Edit(int id)
         {
+            if (!UsuarioLogeado() || UsuarioRol() != 0)
+                return RedirectToAction("Login", "Usuario");
+
             Capitulo capitulo = repositorioCaps.FindById(id);
-            if(capitulo == null)
-            {
+
+            if (capitulo == null)
                 return NotFound();
-            }
 
             CapitulosToListDTO dto = new CapitulosToListDTO
             {
                 CapId = capitulo.Id,
                 CapTitulo = capitulo.Titulo,
-                CapTexto = capitulo.Texto,
+                CapTexto = capitulo.Texto
             };
 
             return View(dto);
         }
 
-        // POST: CapituloController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(CapitulosToListDTO dto)
         {
+            if (!UsuarioLogeado() || UsuarioRol() != 0)
+                return RedirectToAction("Login", "Usuario");
+
             try
             {
                 editarCapituloCU.Execute(dto, UsuarioId());
@@ -100,40 +115,6 @@ namespace WebAPP.Controllers
             {
                 ViewBag.Error = ex.Message;
                 return View(dto);
-            }
-        }
-
-
-
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        // GET: CapituloController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: CapituloController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: CapituloController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
             }
         }
     }

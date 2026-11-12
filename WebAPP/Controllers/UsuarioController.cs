@@ -1,4 +1,5 @@
-﻿using Dominio.Exceptions;
+﻿using Dominio.Enums;
+using Dominio.Exceptions;
 using DTOs.DTOs;
 using LogicaAplicacion.InterfacesCasosDeUso.Usuario;
 using LogicaAplicacion.InterfacesCasosDeUso.Usuarios;
@@ -11,17 +12,12 @@ namespace WebAPP.Controllers
     public class UsuarioController : QOLController
     {
         private ILoginUsuarios loginUsuariosCU;
-        private IListarUsuarios listarUsuariosCU;
-        private IObtenerUsuarioPorId obtenerUsuarioPorIdCU;
         private IAltaUsuario altaUsuarioCU;
 
-        public UsuarioController(   IListarUsuarios listarUsuariosCu, 
-                                    IObtenerUsuarioPorId obtenerUsuarioPorIdCu,
+        public UsuarioController(
                                     IAltaUsuario altaUsuarioCu,
                                     ILoginUsuarios loginUsuariosCu)
         {
-            this.listarUsuariosCU = listarUsuariosCu;
-            this.obtenerUsuarioPorIdCU = obtenerUsuarioPorIdCu;
             this.altaUsuarioCU = altaUsuarioCu;
             this.loginUsuariosCU = loginUsuariosCu;
         }
@@ -32,96 +28,81 @@ namespace WebAPP.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Login(LoginDTO dto)
         {
             try
             {
                 UsuarioDTO usuario = loginUsuariosCU.Execute(dto);
+
+                if (usuario.Rol != 0)
+                {
+                    ViewBag.Error = "Solo pueden acceder admins.";
+                    return View(dto);
+                }
+
                 HttpContext.Session.SetInt32("usuarioid", usuario.Id);
                 HttpContext.Session.SetString("username", usuario.Username);
+                HttpContext.Session.SetInt32("rol", (int)usuario.Rol);
 
+                return RedirectToAction("Index");
             }
             catch (UsuarioException ex)
             {
                 ViewBag.Error = ex.Message;
                 return View(dto);
             }
+        }
 
-            return RedirectToAction("Index");
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Logout()
+        {
+            if (!UsuarioLogeado() || UsuarioRol() != 0)
+            {
+                return RedirectToAction("Login", "Usuario");
+            }
+
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login");
         }
 
         public ActionResult Index()
         {
-            return View(listarUsuariosCU.Execute());
-        }
+            if (!UsuarioLogeado() || UsuarioRol() != 0)
+            {
+                return RedirectToAction("Login", "Usuario");
+            }
 
-        // GET: UsuarioController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View(obtenerUsuarioPorIdCU.Execute(id));
-        }
-
-        // GET: UsuarioController/Create
-        public ActionResult Create()
-        {
             return View();
         }
 
-        // POST: UsuarioController/Create
+        public IActionResult Create()
+        {
+            if (!UsuarioLogeado() || UsuarioRol() != 0)
+            {
+                return RedirectToAction("Login", "Usuario");
+            }
+
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(UsuarioDTO dto)
+        public IActionResult Create(UsuarioDTO dto)
         {
+            if (!UsuarioLogeado() || UsuarioRol() != 0)
+            {
+                return RedirectToAction("Login", "Usuario");
+            }
             try
             {
                 altaUsuarioCU.Execute(dto);
-                return RedirectToAction("Index", "Usuario");
+                return RedirectToAction("Index");
             }
             catch
             {
-                return View();
-            }
-        }
-
-        // GET: UsuarioController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: UsuarioController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: UsuarioController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: UsuarioController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
+                return View(dto);
             }
         }
     }

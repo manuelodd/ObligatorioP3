@@ -7,5 +7,6 @@ namespace Dominio.InterfacesRepositorio
 {
     public interface IRepositorioAuditorias : IRepositorio<Auditoria>
     {
+        public List<Auditoria> FindByFiltros(int? historiaId, int? administradorId);
     }
 }

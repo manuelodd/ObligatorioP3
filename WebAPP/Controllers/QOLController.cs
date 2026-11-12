@@ -6,7 +6,6 @@ namespace WebAPP.Controllers
     public class QOLController : Controller
     {
 
-        // puedo ponerlo protected porque solo lo van a usar los hijos
         protected string UsuarioUsername()
         {
             return HttpContext.Session.GetString("username");
@@ -20,6 +19,11 @@ namespace WebAPP.Controllers
         protected int UsuarioId()
         {
             return HttpContext.Session.GetInt32("usuarioid").Value;
+        }
+
+        protected int UsuarioRol()
+        {
+            return HttpContext.Session.GetInt32("rol").Value;
         }
     }
 }

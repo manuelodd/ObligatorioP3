@@ -20,9 +20,19 @@ namespace LogicaAccesoDatos.RepositoriosEF.Repositorios
             _context.SaveChanges();
         }
 
+        public List<Auditoria> FindByFiltros(int? historiaId, int? administradorId)
+        {
+            List<Auditoria> auditorias = _context.Auditorias.ToList();
+
+            if (historiaId != null)             auditorias = auditorias.Where(a => a.HistoriaId == historiaId).ToList();
+            if (administradorId != null)        auditorias = auditorias.Where(a => a.AdministradorId == administradorId).ToList();
+
+            return auditorias;
+        }
+
         public List<Auditoria> FindAll()
         {
-            throw new NotImplementedException();
+            return _context.Auditorias.ToList();
         }
 
         public Auditoria FindById(int id)

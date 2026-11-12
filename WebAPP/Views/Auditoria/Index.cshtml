@@ -1,0 +1,61 @@
+﻿@using DTOs.DTOs
+@model List<AuditoriaDTO>
+
+@{
+    ViewData["Title"] = "Auditorías";
+}
+
+<h1>Auditorías</h1>
+
+<form asp-controller="Auditoria" asp-action="Index" method="get">
+
+    <label>Historia:</label>
+    <select name="historiaId">
+        <option value="">Todas</option>
+        @foreach (HistoriaDTO historia in ViewBag.Historias)
+        {
+            <option value="@historia.Id">@historia.Titulo</option>
+        }
+    </select>
+
+    <label>Administrador:</label>
+    <select name="administradorId">
+        <option value="">Todos</option>
+        @foreach (UsuarioDTO usuario in ViewBag.Administradores)
+        {
+            <option value="@usuario.Id">@usuario.Username</option>
+        }
+    </select>
+
+    <button type="submit">Filtrar</button>
+
+</form>
+
+<br />
+
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Acción</th>
+            <th>Fecha</th>
+            <th>Administrador ID</th>
+            <th>Historia ID</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (AuditoriaDTO auditoria in Model)
+        {
+            <tr>
+                <td>@auditoria.Id</td>
+                <td>@auditoria.Accion</td>
+                <td>@auditoria.Fecha</td>
+                <td>@auditoria.AdministradorId</td>
+                <td>@auditoria.HistoriaId</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-controller="Usuario" asp-action="Index">Volver</a>

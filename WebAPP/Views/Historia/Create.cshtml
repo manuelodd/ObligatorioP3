@@ -7,13 +7,14 @@
 
 <label for="Titulo">Título</label>
 <input type="text" name="Titulo" id="Titulo"/>
-
+    <br />
 <label for="Sinopsis">Sinopsis</label>
 <input type="text" name="Sinopsis" id="Sinopsis" />
-
+    <br />
 <label for="CategoriasId">Categorias</label> 
 @foreach(CategoriaDTO dto in Model)
 {
+        <br />
         <label>
             @dto.Nombre
             <input type="checkbox"
@@ -21,13 +22,13 @@
                    value="@dto.Id" />
         </label>
 }
-
+    <br />
     <label for="TituloCapInicial">Titulo capitulo inicial: </label>
     <input type="text" name="TituloCapInicial" id="TituloCapInicial" />
-
+    <br />
     <label for="TextoCapInicial">Texto capitulo inicial: </label>
     <input type="text" name="TextoCapInicial" id="TextoCapInicial" />
-
+    <br />
 <input type="submit" value="Crear"/>
 
 </form>
