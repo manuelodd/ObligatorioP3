@@ -12,10 +12,10 @@ namespace WebApi.Controllers
     public class AuthController : ControllerBase
     {
         private IConfiguration _configuration;
-        private ILoginAdmins loginAdminsCU;
-        public AuthController(ILoginAdmins loginAdminsCu, IConfiguration configuration)
+        private ILoginUsuarios loginUsuariosCU;
+        public AuthController(ILoginUsuarios loginUsuariosCu, IConfiguration configuration)
         {
-            loginAdminsCU = loginAdminsCu;
+            loginUsuariosCU = loginUsuariosCu;
             _configuration = configuration;
         }
 
@@ -27,7 +27,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                UsuarioDTO usuariodto = loginAdminsCU.Execute(dto);
+                UsuarioDTO usuariodto = loginUsuariosCU.Execute(dto);
                 string token = JWTHandler.GenerarToken(usuariodto, _configuration);
                 return Ok(
                     new

@@ -45,7 +45,7 @@ builder.Services.AddScoped<IRepositorioLecturas, RepositorioLecturasEF>();
 builder.Services.AddScoped<IObtenerUsuarioPorId, ObtenerUsuarioPorIdCU>();
 builder.Services.AddScoped<IListarUsuarios, ListarUsuariosCU>();
 builder.Services.AddScoped<IAltaUsuario, AltaUsuarioCU>();
-builder.Services.AddScoped<ILoginAdmins, LoginAdminsCU>();
+builder.Services.AddScoped<ILoginUsuarios, LoginUsuariosCU>();
 builder.Services.AddScoped<IListarLectores, ListarLectoresCU>();
 builder.Services.AddScoped<IObtenerUsuarioHistoriasRankings, ObtenerUsuarioHistoriasRankingsCU>();
 // inicializaciones CU historias

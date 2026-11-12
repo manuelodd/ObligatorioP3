@@ -5,7 +5,7 @@ using System.Text;
 
 namespace LogicaAplicacion.InterfacesCasosDeUso.Usuarios
 {
-    public interface ILoginAdmins
+    public interface ILoginUsuarios
     {
         public UsuarioDTO Execute(LoginDTO dto);
     }

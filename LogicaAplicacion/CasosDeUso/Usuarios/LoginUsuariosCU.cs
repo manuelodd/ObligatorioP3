@@ -10,11 +10,11 @@ using System.Text;
 
 namespace LogicaAplicacion.CasosDeUso.Usuarios
 {
-    public class LoginAdminsCU : ILoginAdmins
+    public class LoginUsuariosCU : ILoginUsuarios
     {
         private IRepositorioUsuarios repositorio;
 
-        public LoginAdminsCU(IRepositorioUsuarios repo)
+        public LoginUsuariosCU(IRepositorioUsuarios repo)
         {
             repositorio = repo;
         }

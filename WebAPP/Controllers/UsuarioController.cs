@@ -10,7 +10,7 @@ namespace WebAPP.Controllers
 {
     public class UsuarioController : QOLController
     {
-        private ILoginAdmins loginAdminsCU;
+        private ILoginUsuarios loginUsuariosCU;
         private IListarUsuarios listarUsuariosCU;
         private IObtenerUsuarioPorId obtenerUsuarioPorIdCU;
         private IAltaUsuario altaUsuarioCU;
@@ -18,12 +18,12 @@ namespace WebAPP.Controllers
         public UsuarioController(   IListarUsuarios listarUsuariosCu, 
                                     IObtenerUsuarioPorId obtenerUsuarioPorIdCu,
                                     IAltaUsuario altaUsuarioCu,
-                                    ILoginAdmins loginAdminsCu)
+                                    ILoginUsuarios loginUsuariosCu)
         {
             this.listarUsuariosCU = listarUsuariosCu;
             this.obtenerUsuarioPorIdCU = obtenerUsuarioPorIdCu;
             this.altaUsuarioCU = altaUsuarioCu;
-            this.loginAdminsCU = loginAdminsCu;
+            this.loginUsuariosCU = loginUsuariosCu;
         }
 
         public IActionResult Login()
@@ -36,7 +36,7 @@ namespace WebAPP.Controllers
         {
             try
             {
-                UsuarioDTO usuario = loginAdminsCU.Execute(dto);
+                UsuarioDTO usuario = loginUsuariosCU.Execute(dto);
                 HttpContext.Session.SetInt32("usuarioid", usuario.Id);
                 HttpContext.Session.SetString("username", usuario.Username);
 
