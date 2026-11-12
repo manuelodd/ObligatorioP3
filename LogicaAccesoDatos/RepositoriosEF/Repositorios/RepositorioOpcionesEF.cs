@@ -18,6 +18,7 @@ namespace LogicaAccesoDatos.RepositoriosEF.Repositorios
 
         public void Add(Opcion nuevo)
         {
+            nuevo.Validar();
             _context.Opciones.Add(nuevo);
             _context.SaveChanges();
         }
@@ -47,6 +48,7 @@ namespace LogicaAccesoDatos.RepositoriosEF.Repositorios
 
         public void Update(Opcion nuevo)
         {
+            nuevo.Validar();
             _context.Opciones.Update(nuevo);
             _context.SaveChanges();
         }

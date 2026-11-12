@@ -73,7 +73,7 @@ namespace WebAPP.Controllers
             catch (CapituloException ex)
             {
                 ViewBag.Error = ex.Message;
-                //tengo q volver a cargar el viewbag en caso de error
+                //vuelvo a cargar el viewbag
                 ViewBag.Antecedentes = findAllAntecedentesByIdCU.Execute(dto.HistoriaId);
                 return View(dto);
             }

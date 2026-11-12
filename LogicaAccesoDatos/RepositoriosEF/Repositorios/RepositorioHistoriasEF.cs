@@ -17,6 +17,7 @@ namespace LogicaAccesoDatos.RepositoriosEF.Repositorios
 
         public void Add(Historia nuevo)
         {
+            nuevo.Validar();
             Capitulo inicial = nuevo.Capitulos[0];
 
             nuevo.CapituloInicial = null;

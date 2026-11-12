@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Dominio.Exceptions;
 using Dominio.InterfacesDominio;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,7 +28,8 @@ namespace Dominio.ValueObjects
 
         public void Validar()
         {
-            throw new NotImplementedException();
+            if(string.IsNullOrWhiteSpace(Nombre)) throw new UsuarioException("El nombre no puede estar vacío.");
+            if(string.IsNullOrWhiteSpace(Apellido)) throw new UsuarioException("El apellido no puede estar vacío.");
         }
     }
 }

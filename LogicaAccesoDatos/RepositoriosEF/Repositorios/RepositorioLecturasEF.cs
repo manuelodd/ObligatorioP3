@@ -16,6 +16,7 @@ namespace LogicaAccesoDatos.RepositoriosEF.Repositorios
         }
         public void Add(Lectura nuevo)
         {
+            nuevo.Validar();
             _context.Lecturas.Add(nuevo);
             _context.SaveChanges();
         }
@@ -48,6 +49,7 @@ namespace LogicaAccesoDatos.RepositoriosEF.Repositorios
 
         public void Update(Lectura nuevo)
         {
+            nuevo.Validar();
             _context.Lecturas.Update(nuevo);
             _context.SaveChanges();
         }

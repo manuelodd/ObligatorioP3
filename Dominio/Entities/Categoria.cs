@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Dominio.Exceptions;
 using Dominio.InterfacesDominio;
 
 namespace Dominio.Entities
@@ -12,7 +13,7 @@ namespace Dominio.Entities
 
         public void Validar()
         {
-            throw new NotImplementedException();
+            if(string.IsNullOrWhiteSpace(Nombre))   throw new CategoriaException("Nombre de categoria no puede ser vacio.");
         }
     }
 }

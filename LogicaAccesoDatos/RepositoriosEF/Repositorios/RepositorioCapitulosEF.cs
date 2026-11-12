@@ -17,6 +17,9 @@ namespace LogicaAccesoDatos.RepositoriosEF.Repositorios
 
         public void AgregarCapitulo(Intermedio antecedente, Capitulo nuevo, Opcion opcion, int historiaId)
         {
+            nuevo.Validar();
+            opcion.Validar();
+
             Intermedio ante = _context.Capitulos
                                                 .OfType<Intermedio>()
                                                 .Where(c => c.Id == antecedente.Id)
@@ -51,6 +54,7 @@ namespace LogicaAccesoDatos.RepositoriosEF.Repositorios
 
         public void Update(Capitulo nuevo)
         {
+            nuevo.Validar();
 
             Capitulo capitulo = _context.Capitulos
                                                     .Include(c => c.Historia)

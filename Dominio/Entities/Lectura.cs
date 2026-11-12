@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Dominio.Exceptions;
+using Dominio.InterfacesDominio;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using Dominio.InterfacesDominio;
 
 namespace Dominio.Entities
 {
@@ -27,7 +28,12 @@ namespace Dominio.Entities
 
         public void Validar()
         {
-            //throw new NotImplementedException();
+            if (UsuarioId <= 0)         throw new LecturaException("El usuario es invalido.");
+            if (HistoriaId <= 0)        throw new LecturaException("La historia es invalida.");
+            if (CapituloActualId <= 0)  throw new LecturaException("El capítulo actual es invalido.");
+            if (FechaInicio == default) throw new LecturaException("La fecha de inicio es obligatoria.");
+            if (FechaFin.HasValue && FechaFin.Value < FechaInicio)  
+                                            throw new LecturaException("La fecha de finalizacion no puede ser anterior a la fecha de inicio.");
         }
     }
 }

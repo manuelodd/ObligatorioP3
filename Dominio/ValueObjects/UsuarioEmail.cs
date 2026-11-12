@@ -1,8 +1,10 @@
-﻿using Dominio.InterfacesDominio;
+﻿using Dominio.Exceptions;
+using Dominio.InterfacesDominio;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Dominio.ValueObjects
 {
@@ -20,7 +22,7 @@ namespace Dominio.ValueObjects
 
         public void Validar()
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrWhiteSpace(Email)) throw new UsuarioException("El email no puede estar vacío.");
         }
     }
 }

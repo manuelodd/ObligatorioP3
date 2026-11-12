@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Dominio.Exceptions;
+using Dominio.InterfacesDominio;
+using Dominio.ValueObjects;
+using System;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using Dominio.InterfacesDominio;
-using Dominio.ValueObjects;
 
 namespace Dominio.Entities
 {
@@ -12,8 +13,6 @@ namespace Dominio.Entities
         public int Id { get; set; }
         public string Titulo { get; set; }
         public string Texto { get; set; }
-
-        // capitulos intermedios y finales no se comparten entre hisotias
         public int HistoriaId { get; set; }
         public Historia Historia { get; set; }
 
@@ -26,7 +25,8 @@ namespace Dominio.Entities
 
         public void Validar()
         {
-            //throw new NotImplementedException();
+            if (string.IsNullOrWhiteSpace(Titulo))      throw new CapituloException("El titulo no puede estar vacío.");
+            if (string.IsNullOrWhiteSpace(Texto))       throw new CapituloException("El texto no puede estar vacío.");
         }
     }
 }

@@ -21,7 +21,8 @@ namespace Dominio.Entities
         public Historia() { }
         public void Validar()
         {
-           
+            if (string.IsNullOrWhiteSpace(Titulo))      throw new HistoriaException("El titulo no puede estar vacío.");
+            if (string.IsNullOrWhiteSpace(Sinopsis))    throw new HistoriaException("La sinopsis no puede estar vacía.");
         }
     }
 }

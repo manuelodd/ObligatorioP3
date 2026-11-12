@@ -14,17 +14,19 @@ namespace Dominio.Entities
         public int Id { get; set; }
         public UsuarioNombreCompleto NombreCompleto { get; set; }
         public UsuarioEmail Email { get; set; }
-
         public RolUsuario Rol { get; set; }
-
-        // VVV datos del login
         public string Username { get; set; }
         public UsuarioPassword Password { get; set; }
 
-
         public void Validar()
         {
-            if(string.IsNullOrEmpty(Username)) throw new UsuarioException("Username vacío.");
+            if (string.IsNullOrWhiteSpace(Rol.ToString()))
+                throw new UsuarioException("Nombre no puede ser vacío.");
+            if (string.IsNullOrWhiteSpace(Username))
+                throw new UsuarioException("Username no puede ser vacío.");
+            NombreCompleto.Validar();
+            Email.Validar();
+            Password.Validar();
         }
     }
 
