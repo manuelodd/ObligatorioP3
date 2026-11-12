@@ -19,7 +19,7 @@ namespace LogicaAccesoDatos.RepositoriosEF.Repositorios
         {
             nuevo.CapituloInicial = null;
 
-            // Guardamos la historia y sus capítulos.
+            // Guardamos la historia y sus capítulos.kkjk
             _context.Historias.Add(nuevo);
             _context.SaveChanges();
 
