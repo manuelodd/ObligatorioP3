@@ -52,6 +52,11 @@ namespace WebAPP.Controllers
                 ViewBag.Error = ex.Message;
                 return View(dto);
             }
+            catch(Exception e)
+            {
+                ViewBag.ErrorMessage = e.Message;
+            }
+            return View(dto);
         }
 
         [HttpPost]
@@ -100,7 +105,10 @@ namespace WebAPP.Controllers
                 altaUsuarioCU.Execute(dto);
                 return RedirectToAction("Index");
             }
-            catch
+            catch (UsuarioException ex)
+            {
+                ViewBag.Error = ex.Message;
+            }
             {
                 return View(dto);
             }

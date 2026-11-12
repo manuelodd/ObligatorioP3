@@ -1,7 +1,6 @@
 using Dominio.InterfacesRepositorio;
 using LogicaAccesoDatos.RepositoriosEF;
 using LogicaAccesoDatos.RepositoriosEF.Repositorios;
-using LogicaAccesoDatos.RepositoriosMemoria;
 using LogicaAplicacion.CasosDeUso.Auditorias;
 using LogicaAplicacion.CasosDeUso.Capitulos;
 using LogicaAplicacion.CasosDeUso.Categorias;

@@ -19,6 +19,7 @@ namespace LogicaAplicacion.CasosDeUso.Historias
 
         public List<HistoriaDTO> Execute()
         {
+
             List<HistoriaDTO> listado = new List<HistoriaDTO>();
             foreach(Historia historia in repositorio.FindAll())
             {

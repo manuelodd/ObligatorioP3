@@ -95,7 +95,15 @@ namespace WebAPP.Controllers
             {
                 ViewBag.Error = ex.Message;
                 ViewBag.Categorias = findAllCatsCU.Execute();
-                return View(dto);
+
+                HistoriaDTO historia = findByIdCU.Execute(dto.Id);
+
+                historia.Titulo = dto.Titulo;
+                historia.Sinopsis = dto.Sinopsis;
+                historia.TituloCapInicial = dto.TituloCapInicial;
+                historia.TextoCapInicial = dto.TextoCapInicial;
+
+                return View(historia);
             }
         }
 

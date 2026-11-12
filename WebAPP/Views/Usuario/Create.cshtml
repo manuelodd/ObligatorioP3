@@ -6,6 +6,11 @@
 
 <h1>Alta de Usuario</h1>
 
+@if(ViewBag.Error != null)
+{
+    <p>@ViewBag.Error</p>
+}
+
 <form asp-action="Create" method="post">
 
     <div>

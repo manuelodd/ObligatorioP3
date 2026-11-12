@@ -39,6 +39,7 @@ namespace LogicaAccesoDatos.RepositoriosEF.Repositorios
                 .Include(h => h.Capitulos)
                 .Include(h => h.Categorias)
                 .ToList();
+
         }
 
         public Historia FindById(int id)
@@ -47,6 +48,7 @@ namespace LogicaAccesoDatos.RepositoriosEF.Repositorios
                                         .Include(h => h.Capitulos)
                                             .ThenInclude(c => ((Intermedio)c).Opciones)
                                         .Include(h => h.CapituloInicial)
+                                        .Include(h => h.Categorias)
                                         .FirstOrDefault();
         }
 
